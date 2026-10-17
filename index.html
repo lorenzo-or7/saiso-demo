@@ -1,0 +1,2075 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Saiso – Korean Food Market · Sinta. Prove. Descubra.</title>
+<meta name="description" content="Demonstração de site para a Saiso – Korean Food Market, restaurante e mercado coreano em Curitiba (PR). Sinta. Prove. Descubra.">
+<meta name="theme-color" content="#FBF1E8">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Saiso – Korean Food Market">
+<meta property="og:description" content="Gastronomia, cultura e sabores coreanos em Curitiba. Site demonstrativo.">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="assets/branding/simbolo-saiso.png" type="image/png">
+<link rel="preload" as="image" type="image/webp" imagesrcset="assets/fotos/jeyuk-real-720.webp 720w, assets/fotos/jeyuk-real-1080.webp 1080w" imagesizes="(min-width:900px) 40vw, 90vw">
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');
+try{var t=localStorage.getItem('saiso-theme');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);}catch(e){}
+if(!d.getAttribute('data-theme')&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)d.setAttribute('data-theme','dark');})();
+</script>
+<style>
+/* ============================================================
+   SAISO · KOREAN FOOD MARKET — demo editorial
+   Tokens, base, componentes. Mobile-first.
+   ============================================================ */
+@font-face{font-family:"Newsreader";src:url("assets/fonts/newsreader-latin-wght-normal.woff2") format("woff2");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Newsreader";src:url("assets/fonts/newsreader-latin-wght-italic.woff2") format("woff2");font-weight:200 800;font-style:italic;font-display:swap}
+@font-face{font-family:"DM Sans";src:url("assets/fonts/dm-sans-latin-wght-normal.woff2") format("woff2");font-weight:100 1000;font-style:normal;font-display:swap}
+@font-face{font-family:"Saiso KR";src:url("assets/fonts/noto-serif-kr-600-subset.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
+
+:root{
+  /* paleta aprovada */
+  --color-earth:#7A4A2A;      /* marrom-terra */
+  --color-terracotta:#B75D4D; /* terracota */
+  --color-cocoa:#4E3B3B;      /* cacau */
+  --color-cream:#F8E2D1;      /* creme */
+  --color-warm-black:#211B1A; /* preto quente */
+
+  --font-display:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --font-body:"DM Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-kr:"Saiso KR","Noto Serif KR","Noto Serif CJK KR","Apple Myungjo","Malgun Gothic",serif;
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --radius-s:12px;--radius-m:20px;--radius-l:32px;
+  --rail-w:clamp(176px,14vw,204px);
+  color-scheme:light;
+}
+/* ---- tema claro ---- */
+:root,:root[data-theme="light"]{
+  --surface-0:#FBF1E8;
+  --surface-1:#F8E2D1;
+  --surface-2:#F1D3BE;
+  --surface-card:#FFF8F2;
+  --surface-rail:rgba(255,248,242,.86);
+  --surface-inverse:#2A2120;
+  --surface-inverse-2:#382C2A;
+  --text-1:#261D1C;
+  --text-2:#55413F;
+  --text-muted:#74605C;
+  --text-inverse:#F8E2D1;
+  --text-inverse-2:#DCC6B8;
+  --accent:#B75D4D;
+  --accent-strong:#A44B3B;   /* botões / texto sobre claro */
+  --accent-text:#9B4434;
+  --on-accent:#FFFFFF;
+  --accent-on-inverse:#EE9A86;
+  --line:rgba(78,59,59,.16);
+  --line-strong:rgba(78,59,59,.32);
+  --shadow-1:0 1px 2px rgba(60,35,25,.08),0 8px 24px rgba(60,35,25,.08);
+  --shadow-2:0 2px 4px rgba(60,35,25,.1),0 24px 60px rgba(60,35,25,.18);
+  --focus:#7A4A2A;
+  --disc:#FFFaf5;
+  --paper:#FFFDF9;
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --surface-0:#1B1514;
+  --surface-1:#261E1D;
+  --surface-2:#30262A;
+  --surface-card:#2B2221;
+  --surface-rail:rgba(43,34,33,.88);
+  --surface-inverse:#140F0F;
+  --surface-inverse-2:#241B1A;
+  --text-1:#F8E2D1;
+  --text-2:#E0CBBD;
+  --text-muted:#BBA597;
+  --text-inverse:#F8E2D1;
+  --text-inverse-2:#DCC6B8;
+  --accent:#C96B59;
+  --accent-strong:#B5503F;
+  --accent-text:#EE9A86;
+  --on-accent:#FFFFFF;
+  --accent-on-inverse:#EE9A86;
+  --line:rgba(248,226,209,.14);
+  --line-strong:rgba(248,226,209,.3);
+  --shadow-1:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  --shadow-2:0 2px 4px rgba(0,0,0,.5),0 24px 60px rgba(0,0,0,.55);
+  --focus:#F4B8A6;
+  --disc:#F8E2D1;
+  --paper:#F6E7D8;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme]){color-scheme:dark}
+}
+
+/* ---- base ---- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-gutter:stable;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html.lock{overflow:hidden}
+body{margin:0;background:var(--surface-0);color:var(--text-1);font-family:var(--font-body);font-size:1rem;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;transition:background-color .35s var(--ease),color .35s var(--ease)}
+img,svg{max-width:100%}
+img{display:block;height:auto}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0;padding:0}
+a{color:inherit}
+h1,h2,h3,h4,p,figure,ul,ol,dl,dd{margin:0}
+ul,ol{padding:0;list-style:none}
+:focus{outline:none}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:12px;top:-60px;z-index:200;background:var(--text-1);color:var(--surface-0);padding:10px 16px;border-radius:10px;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.ico{width:1.25em;height:1.25em;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:middle}
+.kr{font-family:var(--font-kr);font-weight:600}
+[hidden]{display:none!important}
+
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(20px,4.2vw,56px)}
+.sec{position:relative;padding-block:clamp(72px,10vw,136px);scroll-margin-top:0}
+.eyebrow{display:flex;align-items:center;gap:12px;font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-text)}
+.eyebrow::before{content:"";width:34px;height:2px;background:currentColor;border-radius:2px;flex:none}
+.on-dark .eyebrow,.eyebrow.inv{color:var(--accent-on-inverse)}
+.h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+.h2 em{font-style:italic;color:var(--accent-text)}
+.lead{font-size:clamp(1.02rem,1.5vw,1.2rem);color:var(--text-2);max-width:56ch;text-wrap:pretty}
+.note{font-size:.82rem;color:var(--text-muted)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;border-radius:999px;font-weight:600;font-size:.97rem;letter-spacing:.01em;text-decoration:none;border:1.5px solid transparent;transition:transform .25s var(--ease),background-color .25s,color .25s,border-color .25s,box-shadow .25s;text-align:center;max-width:100%}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn-primary{background:var(--accent-strong);color:var(--on-accent);box-shadow:0 10px 26px -10px var(--accent-strong)}
+.btn-primary:hover{box-shadow:0 14px 30px -10px var(--accent-strong)}
+.btn-ghost{border-color:var(--line-strong);color:var(--text-1);background:transparent}
+.btn-ghost:hover{border-color:var(--accent-strong);color:var(--accent-text)}
+.btn-inv{border-color:rgba(248,226,209,.45);color:var(--text-inverse)}
+.btn-inv:hover{border-color:var(--accent-on-inverse);color:var(--accent-on-inverse)}
+.btn-cream{background:var(--color-cream);color:#3A2220}
+.btn-sm{min-height:42px;padding:0 20px;font-size:.9rem}
+.icon-btn{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line-strong);transition:background-color .2s,color .2s,border-color .2s,transform .2s var(--ease)}
+.icon-btn:hover{background:var(--text-1);color:var(--surface-0);border-color:var(--text-1)}
+.icon-btn:active{transform:scale(.94)}
+.on-dark .icon-btn{border-color:rgba(248,226,209,.4);color:var(--text-inverse)}
+.on-dark .icon-btn:hover{background:var(--color-cream);color:#2A1D1B;border-color:var(--color-cream)}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line-strong);font-weight:500;font-size:.92rem;transition:background-color .2s,color .2s,border-color .2s}
+.chip:hover{border-color:var(--accent-strong)}
+.chip[aria-pressed="true"]{background:var(--text-1);color:var(--surface-0);border-color:var(--text-1)}
+
+/* reveal on scroll (só ativo com JS) */
+.js .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* ============ alternador sol/lua ============ */
+.theme-toggle{--w:54px;--h:30px;position:relative;width:var(--w);height:var(--h);border-radius:999px;flex:none;background:linear-gradient(180deg,#F6D9C4,#F2C9AE);box-shadow:inset 0 0 0 1px rgba(122,74,42,.25),inset 0 2px 5px rgba(122,74,42,.18);transition:background .45s var(--ease),box-shadow .45s}
+.theme-toggle:focus-visible{outline-offset:4px;border-radius:999px}
+.theme-toggle .tt-cloud{position:absolute;top:50%;width:calc(var(--h)*.64);height:auto;transform:translateY(-50%);stroke:var(--color-earth);fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;opacity:.5;transition:opacity .4s,left .45s var(--ease),right .45s}
+.theme-toggle .tt-cloud.c1{right:6px;left:auto}
+.theme-toggle .tt-cloud.c2{display:none}
+.theme-toggle .tt-orb{position:absolute;top:3px;left:3px;width:calc(var(--h) - 6px);height:calc(var(--h) - 6px);border-radius:50%;background:radial-gradient(circle at 35% 30%,#E58A70,#B75D4D 62%,#9B4434);box-shadow:0 0 0 2px rgba(255,236,222,.55),0 3px 10px rgba(183,93,77,.55);transition:transform .5s var(--ease),background .4s,box-shadow .4s}
+.theme-toggle .tt-orb::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--shade,#F2C9AE);transform:translate(100%,-18%) scale(.82);opacity:0;transition:transform .5s var(--ease),opacity .3s}
+:root[data-theme="dark"] .theme-toggle{background:linear-gradient(180deg,#2C2224,#1B1516);box-shadow:inset 0 0 0 1px rgba(248,226,209,.22),inset 0 2px 6px rgba(0,0,0,.5);--shade:#241B1D}
+:root[data-theme="dark"] .theme-toggle .tt-cloud{stroke:var(--color-cream);opacity:.4}
+:root[data-theme="dark"] .theme-toggle .tt-cloud.c1{left:6px;right:auto}
+:root[data-theme="dark"] .theme-toggle .tt-orb{transform:translateX(calc(var(--w) - var(--h)));background:radial-gradient(circle at 35% 30%,#FFF6EC,#F1DCC8 70%,#DDBFA8);box-shadow:0 0 0 2px rgba(248,226,209,.25),0 0 14px rgba(248,226,209,.35)}
+:root[data-theme="dark"] .theme-toggle .tt-orb::after{transform:translate(32%,-14%) scale(.86);opacity:1}
+.theme-toggle.lg{--w:72px;--h:38px}
+
+/* ============ rail (desktop) ============ */
+.rail{display:none}
+.topbar{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:calc(14px + env(safe-area-inset-top)) clamp(20px,4.2vw,56px) 0}
+.logo-tile{display:inline-grid;place-items:center;background:#FFFCF8;border-radius:18px;padding:6px 14px;box-shadow:var(--shadow-1);border:1px solid rgba(78,59,59,.1)}
+.logo-tile img{height:54px;width:auto}
+.logo-tile.sm img{height:40px}
+.logo-tile.xl img{height:92px}
+@media (min-width:900px){
+  .topbar{display:none}
+  .rail{display:flex;position:fixed;z-index:60;left:0;top:0;bottom:0;width:var(--rail-w);flex-direction:column;padding:20px 14px 16px;background:linear-gradient(185deg,#40302D 0%,#2B2120 100%);color:var(--color-cream);border-right:1px solid rgba(248,226,209,.1);box-shadow:8px 0 40px -20px rgba(20,10,8,.55);overflow-y:auto;overflow-x:hidden;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  :root[data-theme="dark"] .rail{background:linear-gradient(185deg,#231B1A 0%,#141010 100%);border-right-color:rgba(248,226,209,.08)}
+  .rail-brand{display:grid;place-items:center;background:#FFFCF8;border-radius:18px;padding:10px 12px;margin-bottom:20px;box-shadow:0 8px 20px -10px rgba(0,0,0,.5);transition:transform .3s var(--ease)}
+  .rail-brand:hover{transform:translateY(-2px)}
+  .rail-brand img{height:60px;width:auto;max-width:100%}
+  .rail-nav{display:flex;flex-direction:column;gap:2px}
+  .rail-bottom{display:flex;flex-direction:column;gap:14px;margin-top:auto;padding-top:16px}
+  .wrap{padding-left:calc(var(--rail-w) + clamp(24px,4.2vw,64px));max-width:calc(1240px + var(--rail-w))}
+  .foot .wrap,.inv .wrap{max-width:calc(1240px + var(--rail-w))}
+}
+.rail a.nav-i{position:relative;display:flex;align-items:center;gap:14px;height:42px;padding:0 14px;border-radius:12px;color:rgba(248,226,209,.78);font-size:.95rem;font-weight:500;letter-spacing:.005em;text-decoration:none;white-space:nowrap;transition:background-color .25s,color .25s}
+.rail a.nav-i:hover{background:rgba(248,226,209,.09);color:#fff}
+.rail a.nav-i[aria-current="true"]{background:rgba(248,226,209,.15);color:#fff;font-weight:600}
+.rail a.nav-i[aria-current="true"]::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--accent-on-inverse)}
+.rail a.nav-i:focus-visible,.rail .nav-cta:focus-visible,.rail-brand:focus-visible{outline:2px solid var(--color-cream);outline-offset:2px}
+.rail .nav-i .ico{width:20px;height:20px;flex:none}
+.rail .nav-cta{display:flex;align-items:center;justify-content:center;gap:10px;height:50px;border-radius:14px;background:var(--accent-strong);color:var(--on-accent);font-weight:600;font-size:.96rem;box-shadow:0 12px 24px -12px var(--accent-strong),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .25s var(--ease),filter .25s}
+.rail .nav-cta:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.rail .nav-cta .ico{width:19px;height:19px}
+.rail-theme{display:flex;align-items:center;justify-content:center;gap:12px;font-size:.8rem;font-weight:500;color:rgba(248,226,209,.55)}
+.rail-theme .rt-l{min-width:42px;transition:color .3s}
+.rail-theme .rt-light{text-align:right}
+:root:not([data-theme="dark"]) .rail-theme .rt-light,:root[data-theme="dark"] .rail-theme .rt-dark{color:var(--color-cream);font-weight:700}
+.rail-loc{display:flex;gap:10px;align-items:flex-start;padding-top:14px;border-top:1px solid rgba(248,226,209,.12);font-size:.76rem;line-height:1.4;color:rgba(248,226,209,.6)}
+.rail-loc .ico{width:16px;height:16px;flex:none;margin-top:1px;color:var(--accent-on-inverse)}
+[data-tip]{position:relative}
+@media (min-width:900px) and (max-height:760px){
+  .rail{padding:14px 12px 12px}.rail-brand{margin-bottom:12px;padding:6px 10px}.rail-brand img{height:44px}
+  .rail a.nav-i{height:36px}.rail .nav-cta{height:44px}.rail-bottom{gap:10px;padding-top:10px}.rail-loc{display:none}
+}
+@media (min-width:900px) and (max-height:600px){.rail-theme .rt-l{display:none}.rail a.nav-i{height:32px}.rail-brand{display:none}}
+
+/* ============ dock (mobile) ============ */
+.dock{position:fixed;z-index:70;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(calc(100% - 24px),440px);display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:30px;background:var(--surface-rail);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border:1px solid var(--line-strong);box-shadow:0 12px 40px -8px rgba(30,15,10,.45),var(--shadow-1)}
+.dock a,.dock button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:52px;min-height:48px;padding:4px 6px;border-radius:20px;font-size:.66rem;font-weight:600;color:var(--text-2);text-decoration:none;letter-spacing:.01em;transition:background-color .2s,color .2s}
+.dock .ico{width:22px;height:22px}
+.dock a[aria-current="true"]{color:var(--accent-text);background:var(--surface-1)}
+.dock .dock-cta{width:58px;height:58px;margin-top:-26px;border-radius:50%;background:var(--accent-strong);color:var(--on-accent)!important;box-shadow:0 10px 22px -6px var(--accent-strong),0 0 0 5px var(--surface-0);font-size:.62rem;gap:0}
+@media (min-width:900px){.dock{display:none}}
+@media (max-width:899.98px){body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow-x:clip;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(1100px 700px at 78% 42%,rgba(183,93,77,.16),transparent 62%),radial-gradient(800px 520px at 8% 90%,rgba(122,74,42,.14),transparent 60%),var(--surface-0)}
+:root[data-theme="dark"] .hero::before{background:radial-gradient(1100px 720px at 78% 42%,rgba(201,107,89,.22),transparent 62%),radial-gradient(800px 520px at 8% 90%,rgba(122,74,42,.2),transparent 60%),var(--surface-0)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .25 0 0 0 .09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+:root[data-theme="dark"] .hero::after{mix-blend-mode:screen;opacity:.25}
+.hero-body{flex:1;display:flex;align-items:center;padding-block:clamp(20px,3vh,40px) clamp(28px,5vh,56px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(28px,5vw,48px);align-items:center;width:100%}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,2.4vh,24px);position:relative;z-index:2}
+.hero-logo{display:none}
+.hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(3.7rem,17.5vw,6.6rem);line-height:.9;letter-spacing:-.035em;color:var(--text-1);font-optical-sizing:auto}
+.hero h1 span{display:block}
+.hero h1 .l3{color:var(--accent-text);font-style:italic;font-weight:500}
+.hero-lead{font-size:clamp(1.02rem,1.5vw,1.22rem);color:var(--text-2);max-width:34ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 22px;font-size:.84rem;color:var(--text-muted);margin-top:4px}
+.hero-facts li{display:flex;align-items:center;gap:8px}
+.hero-facts .ico{color:var(--accent-text);width:18px;height:18px}
+.prints{display:none}
+
+.hero-art{position:relative;width:min(100%,520px);aspect-ratio:1080/1253;margin-inline:auto;justify-self:center}
+.hero-art .brush{position:absolute;left:-17%;top:-9%;width:134%;max-width:none;height:auto;z-index:0;opacity:.95;pointer-events:none}
+:root[data-theme="dark"] .hero-art .brush{opacity:.75}
+.hero-art .cocoa-blob-x{position:absolute;right:-12%;bottom:-6%;width:62%;aspect-ratio:1.2;border-radius:58% 42% 52% 48%/48% 56% 44% 52%;background:var(--color-cocoa);opacity:.9;z-index:0;transform:rotate(-12deg)}
+:root[data-theme="dark"] .hero-art .cocoa-blob-x{background:#3a2a28}
+.hero-art .offset{position:absolute;inset:0;transform:translate(16px,16px);border:2px solid var(--accent);border-radius:var(--hero-r);z-index:1;opacity:.7}
+.hero-art{--hero-r:38% 7% 12% 12%/22% 5% 7% 8%}
+.hero-photo{position:absolute;inset:0;z-index:2;border-radius:var(--hero-r);overflow:hidden;box-shadow:0 40px 70px -28px rgba(40,18,10,.65),0 12px 24px -10px rgba(40,18,10,.4);background:#2a2623}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-tag{position:absolute;z-index:4;left:2%;bottom:5%;display:flex;flex-direction:column;gap:2px;padding:12px 18px 12px 16px;border-radius:16px;background:var(--paper);color:#2c1f1d;box-shadow:var(--shadow-2);transform:rotate(-2.5deg)}
+.hero-tag b{font-family:var(--font-display);font-size:1.35rem;font-weight:600;line-height:1;letter-spacing:-.01em}
+.hero-tag b i{font-family:var(--font-kr);font-style:normal;font-size:.95rem;color:var(--accent-strong);margin-left:6px}
+.hero-tag small{font-size:.7rem;color:#6b5652;letter-spacing:.02em}
+.stamp{position:absolute;z-index:4;right:-3%;top:2%;width:clamp(78px,10vw,108px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--paper);color:var(--accent-strong);box-shadow:var(--shadow-1);transform:rotate(10deg)}
+.stamp::before{content:"";position:absolute;inset:6px;border-radius:50%;border:1.5px dashed var(--accent)}
+.stamp span{font-family:var(--font-kr);font-size:clamp(1.1rem,1.6vw,1.45rem);line-height:1}
+.mascot-btn{position:absolute;display:block;border-radius:50%;transition:transform .35s var(--ease)}
+.mascot-btn img{width:100%;height:auto;filter:drop-shadow(0 8px 10px rgba(30,12,8,.35))}
+.mascot-btn:hover{transform:translateY(-6px) rotate(-4deg)}
+.hero .ramy{z-index:5;right:-7%;bottom:-3%;width:clamp(92px,13vw,142px)}
+.hero-note{display:none;position:absolute;z-index:4;left:6%;top:-7.5%;transform:rotate(-5deg);font-family:var(--font-display);font-style:italic;font-weight:500;font-size:clamp(1.05rem,1.5vw,1.4rem);color:var(--accent-text);white-space:nowrap}
+.hero-note::after{content:"";display:block;height:3px;border-radius:3px;margin-top:4px;background:var(--accent);opacity:.6;transform:rotate(1deg)}
+.hero-corner{display:none;position:absolute;z-index:-1;right:0;bottom:0;align-items:center;gap:20px;width:min(36vw,470px);height:clamp(120px,22svh,200px);padding:34px 34px 0 clamp(50px,5.2vw,80px);border-radius:70% 0 0 0/100% 0 0 0;background:var(--color-cocoa);color:var(--color-cream)}
+:root[data-theme="dark"] .hero-corner{background:#33292A}
+.hero-corner .hc-kr{writing-mode:vertical-rl;font-family:var(--font-kr);font-size:clamp(.95rem,1.25vw,1.2rem);letter-spacing:.1em;white-space:nowrap;color:var(--accent-on-inverse);padding-right:18px;border-right:1px solid rgba(248,226,209,.28);line-height:1.1}
+.hero-corner p{display:flex;flex-direction:column;gap:3px;font-family:var(--font-display);font-size:clamp(.92rem,1.2vw,1.1rem);line-height:1.25}
+
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero .a{animation:rise .9s var(--ease) both;animation-delay:var(--d,0s)}
+.hero .art-a{animation:pop 1.1s var(--ease) both;animation-delay:.25s}
+.hero .ramy img{animation:bob 4.2s ease-in-out 1.4s infinite}
+
+@media (min-width:900px){
+  .hero-body{padding-top:clamp(28px,5vh,56px)}
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .hero h1{font-size:clamp(3.6rem,min(7.4vw,15svh),9rem)}
+  .hero-art{width:min(100%,calc(70svh*1080/1253),600px)}
+  .hero .ramy{right:-9%}
+  .hero-tag{left:-13%}
+  .hero-note{display:block}
+  .hero-corner{display:flex}
+}
+@media (min-width:1180px) and (min-height:780px){
+  .prints{display:flex;gap:18px;margin-top:10px;align-items:flex-end}
+  .print{background:#FFFDF9;padding:7px 7px 24px;border-radius:4px;box-shadow:var(--shadow-1);width:118px;position:relative;transition:transform .35s var(--ease)}
+  .print img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px}
+  .print figcaption{position:absolute;left:0;right:0;bottom:5px;text-align:center;font-size:.64rem;color:#6b5652;letter-spacing:.04em}
+  .print:nth-child(1){transform:rotate(-4deg)}.print:nth-child(2){transform:rotate(3.5deg) translateY(8px)}
+  .print:hover{transform:rotate(0) scale(1.05)}
+  .prints-note{position:relative;font-family:var(--font-display);font-style:italic;font-size:1.02rem;color:var(--text-2);max-width:23ch;line-height:1.25;padding:0 0 8px 34px}
+  .prints-note .curl{position:absolute;left:-14px;top:-30px;width:46px;height:auto;color:var(--text-2);opacity:.8}
+}
+@media (max-height:760px) and (min-width:900px){
+  .hero-lead{font-size:1rem}.hero-copy{gap:12px}.hero-facts{display:none}
+}
+
+/* ============ EXPERIÊNCIA ============ */
+.exp-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(40px,6vw,88px);align-items:center}
+.exp-collage{position:relative;aspect-ratio:1/1.02;max-width:560px;width:100%;margin-inline:auto}
+.exp-collage figure{position:absolute;margin:0;background:var(--paper);padding:8px 8px 8px;border-radius:6px;box-shadow:var(--shadow-2)}
+.exp-collage img{width:100%;height:100%;object-fit:cover;border-radius:3px}
+.exp-collage .f1{left:0;top:0;width:58%;aspect-ratio:1008/1024;transform:rotate(-3deg)}
+.exp-collage .f2{right:0;top:17%;width:52%;aspect-ratio:1024/747;transform:rotate(3.5deg);z-index:2}
+.exp-collage .f3{left:12%;bottom:0;width:46%;aspect-ratio:1080/1075;transform:rotate(-1.5deg);z-index:3}
+.exp-collage figcaption{position:absolute;left:10px;bottom:-26px;font-size:.7rem;color:var(--text-muted);white-space:nowrap}
+.exp-collage .tape{position:absolute;z-index:4;width:86px;height:26px;background:rgba(183,93,77,.5);transform:rotate(-8deg);left:18%;top:-10px;border-radius:2px;mix-blend-mode:multiply}
+.exp-collage .seal{position:absolute;z-index:5;right:6%;bottom:6%;top:auto;width:96px;height:96px}
+.exp-text{display:flex;flex-direction:column;gap:22px}
+.exp-quote{position:relative;padding:22px 24px 22px 28px;border-left:3px solid var(--accent);background:var(--surface-card);border-radius:0 var(--radius-m) var(--radius-m) 0;box-shadow:var(--shadow-1);font-family:var(--font-display);font-size:clamp(1.1rem,1.6vw,1.28rem);line-height:1.5;color:var(--text-1)}
+.exp-quote footer{display:block;margin-top:10px;font-family:var(--font-body);font-size:.76rem;color:var(--text-muted)}
+.feat-list{display:grid;gap:14px;grid-template-columns:1fr}
+.feat-list li{display:flex;gap:14px;align-items:flex-start}
+.feat-list .ic{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--surface-1);color:var(--accent-text);flex:none}
+.feat-list b{display:block;font-weight:600;font-size:.98rem}
+.feat-list span.d{display:block;font-size:.86rem;color:var(--text-muted);line-height:1.45}
+@media (min-width:700px){.feat-list{grid-template-columns:1fr 1fr;gap:18px 26px}}
+@media (min-width:960px){.exp-grid{grid-template-columns:1fr 1fr}}
+
+/* ============ SABORES (revista) ============ */
+.sabores{background:var(--surface-inverse);color:var(--text-inverse);overflow:hidden;isolation:isolate}
+.sabores::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(900px 600px at 80% 30%,rgba(183,93,77,.28),transparent 65%),radial-gradient(700px 500px at 0% 100%,rgba(122,74,42,.3),transparent 62%)}
+.sabores .h2{color:var(--text-inverse)}
+.sab-head{display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(28px,4vw,52px)}
+.sab-head .lead{color:var(--text-inverse-2)}
+.mag{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center}
+.stage{position:relative;width:min(100%,540px);aspect-ratio:1;margin-inline:auto}
+.stage .ghost{position:absolute;right:-4%;top:-8%;font-family:var(--font-display);font-weight:600;font-size:clamp(7rem,22vw,15rem);line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(248,226,209,.16);letter-spacing:-.05em;pointer-events:none;user-select:none}
+.stage .disc{position:absolute;inset:5%;border-radius:50%;background:radial-gradient(circle at 38% 30%,#FFFDF9,var(--disc) 55%,#EBD2BE);box-shadow:inset 0 0 0 10px rgba(255,255,255,.35),0 40px 80px -30px rgba(0,0,0,.7)}
+:root[data-theme="dark"] .stage .disc{background:radial-gradient(circle at 38% 30%,#FBEBDD,var(--disc) 55%,#E2C5AF)}
+.stage .ring{position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(248,226,209,.3);animation:none}
+.stage .shadow{position:absolute;left:24%;right:24%;bottom:17%;height:7%;border-radius:50%;background:rgba(60,30,20,.4);filter:blur(14px)}
+.stage .dish{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .32s var(--ease),transform .5s var(--ease)}
+.stage .dish img{width:76%;max-height:78%;object-fit:contain;filter:drop-shadow(0 18px 14px rgba(70,30,15,.38))}
+.stage .dish.is-tall img{width:auto;height:78%;max-width:56%}
+.stage .dish.is-wide img{width:84%}
+.stage .dish.is-photo{padding:6%}
+.stage .dish.is-photo img{width:100%;height:auto;aspect-ratio:1/1;max-height:none;max-width:none;object-fit:cover;border-radius:50%;filter:none}
+.stage.swap .dish{opacity:0;transform:scale(.94) rotate(-3deg)}
+.mag-copy{display:flex;flex-direction:column;gap:18px;min-height:0}
+.mag-count{font-size:.8rem;letter-spacing:.2em;font-weight:600;color:var(--accent-on-inverse);display:flex;align-items:center;gap:12px}
+.mag-count span.bar{display:block;width:44px;height:2px;background:currentColor;opacity:.6}
+.mag-name{font-family:var(--font-display);font-weight:500;font-size:clamp(2.5rem,6vw,4.9rem);line-height:.98;letter-spacing:-.025em;color:var(--text-inverse);text-wrap:balance}
+.mag-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.tag{display:inline-flex;align-items:center;gap:7px;padding:5px 13px;border-radius:999px;font-size:.78rem;font-weight:600;letter-spacing:.04em;border:1px solid rgba(248,226,209,.32);color:var(--text-inverse-2)}
+.tag.hot{border-color:rgba(238,154,134,.6);color:var(--accent-on-inverse)}
+.tag .ico{width:15px;height:15px}
+.mag-desc{color:var(--text-inverse-2);font-size:1.06rem;max-width:44ch}
+.mag-price{display:flex;flex-direction:column;gap:2px}
+.mag-price b{font-family:var(--font-display);font-size:clamp(2rem,3.4vw,2.8rem);font-weight:500;color:var(--text-inverse);letter-spacing:-.01em;line-height:1.1}
+.mag-price small{font-size:.76rem;color:rgba(220,198,184,.75)}
+.mag-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.mag-nav{display:flex;gap:10px;margin-left:auto}
+.tteok-pop{display:flex;align-items:center;gap:12px;font-size:.86rem;color:var(--text-inverse-2)}
+.tteok-pop .mascot-btn{position:relative;width:58px;flex:none}
+.mag-vert{position:absolute;right:clamp(8px,1.8vw,28px);top:50%;transform:translateY(-50%);writing-mode:vertical-rl;font-family:var(--font-kr);letter-spacing:.5em;color:rgba(248,226,209,.4);font-size:1rem;display:none}
+.thumbs{display:flex;gap:12px;width:fit-content;max-width:100%;margin-inline:auto;overflow-x:auto;padding:6px 4px 14px;margin-top:clamp(28px,4vw,48px);scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(248,226,209,.3) transparent}
+.thumb{flex:none;width:96px;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 6px 10px;border-radius:20px;border:1.5px solid transparent;color:var(--text-inverse-2);font-size:.74rem;font-weight:500;text-align:center;line-height:1.2;transition:background-color .25s,border-color .25s,transform .25s var(--ease),color .25s}
+.thumb .t-img{width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 40% 30%,#FFFDF9,var(--disc) 60%,#E7CDB8);display:grid;place-items:center;overflow:hidden;box-shadow:0 8px 16px -8px rgba(0,0,0,.6)}
+.thumb .t-img img{width:100%;height:100%;object-fit:cover}
+.thumb:hover{background:rgba(248,226,209,.08);transform:translateY(-3px)}
+.thumb[aria-current="true"]{border-color:var(--accent-on-inverse);background:rgba(238,154,134,.12);color:var(--text-inverse)}
+.thumb:focus-visible{outline-color:var(--color-cream)}
+.sabores :focus-visible{outline-color:var(--color-cream)}
+.mag-full{display:flex;justify-content:center;margin-top:clamp(20px,3vw,36px)}
+.sab-foot{margin-top:18px;text-align:center;color:rgba(220,198,184,.78)}
+@media (min-width:900px){
+  .mag{grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);}
+  .mag-vert{display:block}
+}
+
+/* ============ MARKET ============ */
+.market{background:var(--surface-1);overflow:hidden;isolation:isolate}
+.market::before{content:"";position:absolute;right:-12%;top:-10%;width:60vw;max-width:760px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(183,93,77,.2),transparent 68%);z-index:-1}
+.mk-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(36px,5vw,72px)}
+.mk-photo{position:relative;max-width:620px;width:100%;margin-inline:auto}
+.mk-photo .frame{position:relative;background:var(--paper);padding:10px 10px 10px;border-radius:8px;box-shadow:var(--shadow-2);transform:rotate(-2deg)}
+.mk-photo .frame img{width:100%;aspect-ratio:1024/747;object-fit:cover;border-radius:3px}
+.mk-photo .tape{position:absolute;left:50%;top:-14px;width:110px;height:30px;background:rgba(183,93,77,.5);transform:translateX(-50%) rotate(3deg);border-radius:2px;z-index:2}
+.sticker{position:absolute;z-index:3;display:grid;place-items:center;text-align:center;font-weight:700;line-height:1.05;box-shadow:0 8px 16px -6px rgba(40,18,10,.5)}
+.sticker.s1{right:-4%;top:-7%;width:96px;aspect-ratio:1;border-radius:50%;background:var(--accent-strong);color:#fff;font-family:var(--font-kr);font-size:1.15rem;transform:rotate(12deg);border:3px solid #fff}
+.sticker.s2{left:-3%;bottom:10%;padding:8px 14px;border-radius:10px;background:#FFE7A6;color:#4a2c10;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;transform:rotate(-7deg)}
+.sticker.s3{right:7%;bottom:-5%;padding:7px 13px;border-radius:999px;background:var(--color-cocoa);color:#F8E2D1;font-size:.72rem;letter-spacing:.1em;transform:rotate(4deg)}
+.star-deco{position:absolute;z-index:3;color:var(--accent);width:34px;height:34px}
+.mk-copy{display:flex;flex-direction:column;gap:20px}
+.mk-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.mk-label{font-size:.82rem;color:var(--text-muted);display:flex;gap:8px;align-items:center}
+.mk-cards li{display:flex}.mk-cards{display:grid;align-items:stretch;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:8px}
+.pcard{display:flex;flex-direction:column;gap:10px;height:100%;padding:10px 10px 14px;border-radius:var(--radius-m);background:var(--surface-card);box-shadow:var(--shadow-1);text-align:left;transition:transform .3s var(--ease),box-shadow .3s}
+.pcard:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:var(--shadow-2)}
+.pcard .p-img{aspect-ratio:1;border-radius:14px;overflow:hidden;background:#fff}
+.pcard .p-img img{width:100%;height:100%;object-fit:cover}
+.pcard b{font-weight:600;font-size:.98rem;line-height:1.2;padding-inline:4px}
+.pcard span{padding-inline:4px;font-size:.78rem;color:var(--text-muted)}
+.pcard .kr{color:var(--accent-text)}
+.mandu-wrap{position:relative;display:flex;align-items:flex-end;gap:10px;margin-top:10px;min-height:120px}
+.mandu-wrap .mascot-btn{position:relative;flex:none;width:clamp(96px,14vw,128px)}
+.bubble{position:relative;padding:14px 18px;border-radius:18px 18px 18px 4px;background:var(--surface-card);box-shadow:var(--shadow-1);font-size:.92rem;line-height:1.45;max-width:36ch;border:1px solid var(--line);transition:opacity .25s,transform .35s var(--ease)}
+.bubble b{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);margin-bottom:4px}
+.bubble.swap{opacity:0;transform:translateY(6px)}
+@media (min-width:960px){.mk-grid{grid-template-columns:1fr 1.05fr;align-items:center}}
+@media (min-width:560px){.mk-cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:960px) and (max-width:1200px){.mk-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ============ AVALIAÇÕES ============ */
+.rev-head{display:flex;flex-direction:column;gap:22px;margin-bottom:clamp(30px,4vw,52px)}
+.rating{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px}
+.rating .big{font-family:var(--font-display);font-size:clamp(3.4rem,7vw,5rem);font-weight:500;line-height:1;letter-spacing:-.03em}
+.rating .big small{font-size:.38em;color:var(--text-muted);letter-spacing:0;font-weight:400}
+.stars{position:relative;display:inline-block;font-size:1.5rem;letter-spacing:.12em;line-height:1;color:var(--line-strong)}
+.stars::before{content:"★★★★★"}
+.stars i{position:absolute;inset:0;width:92%;overflow:hidden;color:var(--accent);font-style:normal}
+.stars i::before{content:"★★★★★"}
+.rating .meta{display:flex;flex-direction:column;gap:2px;font-size:.88rem;color:var(--text-2)}
+.rev-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.rev-main{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:26px;padding:clamp(26px,4vw,52px);border-radius:var(--radius-l);background:var(--surface-inverse);color:var(--text-inverse);box-shadow:var(--shadow-2);overflow:hidden;min-height:340px;touch-action:pan-y}
+.rev-main::before{content:"“";position:absolute;right:20px;top:-40px;font-family:var(--font-display);font-size:16rem;line-height:1;color:rgba(238,154,134,.14);pointer-events:none}
+.rev-main .kind{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--accent-on-inverse)}
+.rev-main blockquote{margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(1.6rem,3.6vw,2.7rem);line-height:1.18;letter-spacing:-.015em;text-wrap:balance;transition:opacity .3s var(--ease),transform .4s var(--ease)}
+.rev-main.swap blockquote,.rev-main.swap .rev-by{opacity:0;transform:translateY(10px)}
+.rev-extra{color:var(--text-inverse-2);font-size:.95rem;margin-top:-10px}
+.rev-main.swap .rev-extra{opacity:0}
+.rev-by{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;transition:opacity .3s var(--ease),transform .4s var(--ease)}
+.rev-by b{display:block;font-size:1.05rem}
+.rev-by small{color:var(--text-inverse-2);font-size:.8rem}
+.rev-ctrl{display:flex;gap:10px}
+.rev-list{display:grid;gap:12px;grid-template-columns:1fr}
+.rev-mini{display:flex;flex-direction:column;gap:8px;padding:18px 20px;border-radius:var(--radius-m);background:var(--surface-card);border:1px solid var(--line);text-align:left;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.rev-mini:hover{transform:translateY(-3px);box-shadow:var(--shadow-1);border-color:var(--accent)}
+.rev-mini b{font-weight:600}
+.rev-mini p{font-size:.88rem;color:var(--text-2);line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rev-mini .go{display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:600;color:var(--accent-text);margin-top:2px}
+.rev-foot{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center}
+.rev-foot a{color:var(--accent-text);font-weight:600;font-size:.88rem}
+@media (min-width:560px) and (max-width:959px){.rev-list{grid-template-columns:1fr 1fr}}
+@media (min-width:960px){.rev-grid{grid-template-columns:1.45fr 1fr}.rev-list{grid-template-rows:repeat(4,auto)}}
+
+/* ============ RESERVAS (convite) ============ */
+.invite{position:relative;overflow:hidden;background:var(--color-terracotta);color:#fff;isolation:isolate}
+:root[data-theme="dark"] .invite{background:#7a3a30}
+.invite::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(700px 400px at 90% 100%,rgba(78,59,59,.55),transparent 65%),radial-gradient(500px 360px at 0 0,rgba(255,220,200,.22),transparent 60%)}
+.inv-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(56px,8vw,104px)}
+.inv-copy{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.inv-copy .h2{color:#fff}
+.inv-copy .h2 em{color:#FFE2D2}
+.inv-copy p{max-width:46ch;color:#FFEFE6;font-size:1.08rem}
+.inv-hours{display:flex;flex-wrap:wrap;gap:10px}
+.inv-hours span{padding:7px 14px;border-radius:999px;background:rgba(33,27,26,.28);font-size:.82rem;font-weight:500}
+.invite .note{color:#FFE3D6}
+.invite .btn-primary{background:#FFF6EE;color:#7a2f22;box-shadow:0 14px 30px -12px rgba(0,0,0,.5)}
+.inv-art{position:relative;display:flex;justify-content:center;min-height:200px}
+.inv-art .bap{width:clamp(180px,26vw,300px);filter:drop-shadow(0 18px 16px rgba(40,10,5,.45));animation:bob 5s ease-in-out infinite}
+.inv-art .tag{position:absolute;right:4%;bottom:2%;background:rgba(255,246,238,.95);color:#6a2c20;border-color:transparent;transform:rotate(5deg)}
+@media (min-width:860px){.inv-grid{grid-template-columns:1.3fr .7fr}}
+
+/* ============ VISITE ============ */
+.visit-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(30px,4vw,56px);align-items:stretch}
+.visit-photo{position:relative;border-radius:var(--radius-l);overflow:hidden;aspect-ratio:1008/1024;align-self:start;box-shadow:var(--shadow-2)}
+.visit-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.visit-photo figcaption{position:absolute;left:14px;bottom:14px;padding:6px 12px;border-radius:999px;background:rgba(20,12,10,.6);color:#F8E2D1;font-size:.74rem;backdrop-filter:blur(6px)}
+.visit-card{display:flex;flex-direction:column;gap:22px;padding:clamp(24px,3.4vw,40px);border-radius:var(--radius-l);background:var(--surface-card);border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.visit-rows{display:grid;gap:16px}
+.v-row{display:flex;gap:14px;align-items:flex-start}
+.v-row .ic{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--surface-1);color:var(--accent-text);flex:none}
+.v-row h3{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--text-muted);margin-bottom:2px}
+.v-row p,.v-row address{font-style:normal;font-size:1rem;line-height:1.5}
+.hours{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;font-size:.96rem}
+.hours dt{font-weight:600}
+.hours dd{color:var(--text-2);overflow-wrap:anywhere}
+.hours .tbc{color:var(--text-muted);font-style:italic}
+.v-actions{display:flex;flex-wrap:wrap;gap:10px}
+.svc{display:flex;flex-wrap:wrap;gap:8px}
+.svc li{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;background:var(--surface-1);font-size:.8rem;font-weight:500;color:var(--text-2)}
+.svc .ico{width:15px;height:15px;color:var(--accent-text)}
+@media (min-width:960px){.visit-grid{grid-template-columns:.9fr 1.1fr}}
+
+/* ============ FOOTER ============ */
+.foot{background:var(--surface-inverse);color:var(--text-inverse);padding-block:clamp(48px,7vw,84px) 32px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:36px}
+.foot h3{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-on-inverse);margin-bottom:12px;font-weight:600}
+.foot ul{display:grid;gap:8px}
+.foot a{text-decoration:none;color:var(--text-inverse-2);font-size:.95rem}
+.foot a:hover{color:#fff;text-decoration:underline}
+.foot :focus-visible{outline-color:var(--color-cream)}
+.foot-slogan{font-family:var(--font-display);font-style:italic;font-size:1.6rem;margin-top:16px;color:var(--text-inverse)}
+.foot-friends{display:flex;gap:10px;flex-wrap:wrap}
+.foot-friends button{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:rgba(248,226,209,.1);border:1px solid rgba(248,226,209,.22);transition:transform .3s var(--ease),background-color .2s}
+.foot-friends button:hover{transform:translateY(-4px);background:rgba(248,226,209,.2)}
+.foot-friends img{width:36px;height:36px;object-fit:contain}
+.foot-bottom{margin-top:40px;padding-top:22px;border-top:1px solid rgba(248,226,209,.16);display:flex;flex-direction:column;gap:8px;font-size:.78rem;color:rgba(220,198,184,.78)}
+.foot-bottom b{color:var(--text-inverse);font-weight:600}
+@media (min-width:860px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1.1fr}.foot-bottom{flex-direction:row;justify-content:space-between}}
+
+/* ============ OVERLAY / PAINÉIS ============ */
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(24,12,10,.58);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility 0s linear .35s}
+.overlay.open{opacity:1;visibility:visible;transition-delay:0s}
+.panel{position:fixed;z-index:110;background:var(--surface-0);color:var(--text-1);box-shadow:var(--shadow-2);visibility:hidden;transition:transform .45s var(--ease),opacity .35s var(--ease),visibility 0s linear .45s;display:flex;flex-direction:column;overscroll-behavior:contain}
+.panel.open{visibility:visible;transition-delay:0s}
+.panel-r{top:0;right:0;bottom:0;width:min(100%,600px);transform:translateX(104%);border-radius:28px 0 0 28px}
+.panel-r.open{transform:none}
+.panel-c{left:50%;top:50%;width:min(calc(100% - 24px),680px);max-height:calc(100dvh - 24px);transform:translate(-50%,-46%) scale(.96);opacity:0;border-radius:28px}
+.panel-c.open{transform:translate(-50%,-50%);opacity:1}
+@media (max-width:640px){
+  .panel-r{width:100%;border-radius:0}
+  .panel-c.res{left:0;top:auto;bottom:0;width:100%;max-height:96dvh;height:96dvh;border-radius:26px 26px 0 0;transform:translateY(104%);opacity:1}
+  .panel-c.res.open{transform:none}
+}
+.p-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 22px 14px;flex:none}
+.p-head h2{font-family:var(--font-display);font-weight:500;font-size:1.7rem;letter-spacing:-.015em;line-height:1.1}
+.p-head .sub{font-size:.8rem;color:var(--text-muted);margin-top:2px}
+.p-close{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line-strong);flex:none;transition:background-color .2s,color .2s}
+.p-close:hover{background:var(--text-1);color:var(--surface-0)}
+.p-body{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:0 22px 28px;-webkit-overflow-scrolling:touch}
+.p-back{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px 0 10px;border-radius:999px;font-weight:600;font-size:.9rem;color:var(--text-2)}
+.p-back:hover{color:var(--accent-text)}
+
+/* cardápio */
+.m-tools{display:flex;flex-direction:column;gap:12px;padding:0 22px 14px;flex:none;border-bottom:1px solid var(--line)}
+.search{position:relative}
+.search .ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-muted)}
+.search input{width:100%;min-height:50px;padding:0 44px 0 46px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--surface-card);font-size:1rem}
+.search input:focus{outline:none;border-color:var(--accent-strong);box-shadow:0 0 0 4px rgba(183,93,77,.22)}
+.search .clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:var(--text-muted)}
+.m-chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.m-chips::-webkit-scrollbar{display:none}
+.m-chips .chip{flex:none;min-height:42px;padding:0 16px;font-size:.88rem}
+.m-count{font-size:.8rem;color:var(--text-muted)}
+.m-group{margin-top:22px}
+.m-group h3{font-family:var(--font-display);font-size:1.2rem;font-weight:500;display:flex;align-items:center;gap:12px;margin-bottom:6px;color:var(--text-2)}
+.m-group h3::after{content:"";flex:1;height:1px;background:var(--line)}
+.m-item{display:grid;grid-template-columns:76px 1fr auto;align-items:center;gap:14px;width:100%;padding:12px 8px;border-radius:18px;text-align:left;transition:background-color .2s}
+.m-item:hover{background:var(--surface-1)}
+.m-thumb{width:76px;height:76px;border-radius:16px;overflow:hidden;background:radial-gradient(circle at 40% 30%,#fff,var(--disc) 70%);display:grid;place-items:center}
+.m-thumb img{width:100%;height:100%;object-fit:contain}
+.m-thumb.cover img{object-fit:cover}
+.m-thumb.ph{background:repeating-linear-gradient(135deg,var(--surface-1) 0 8px,var(--surface-2) 8px 9px);color:var(--accent-text)}
+.m-item b{display:block;font-weight:600;line-height:1.25}
+.m-item .d{display:block;font-size:.82rem;color:var(--text-muted);line-height:1.35;margin-top:2px}
+.m-item .pr{font-family:var(--font-display);font-size:1.12rem;font-weight:600;white-space:nowrap}
+.m-empty{padding:40px 10px;text-align:center;color:var(--text-muted)}
+.m-empty b{display:block;font-family:var(--font-display);font-size:1.4rem;color:var(--text-1);font-weight:500;margin-bottom:4px}
+.m-foot{margin-top:26px;padding:14px 16px;border-radius:14px;background:var(--surface-1);font-size:.8rem;color:var(--text-2)}
+/* detalhe */
+.d-hero{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:1;display:grid;place-items:center;background:radial-gradient(circle at 40% 30%,#fff,var(--disc) 62%,#E6CCB7);margin-bottom:22px}
+.d-hero img{max-width:82%;max-height:84%;object-fit:contain;filter:drop-shadow(0 16px 12px rgba(70,30,15,.3))}
+.d-hero.is-photo img{max-width:none;max-height:none;width:100%;height:100%;object-fit:cover;filter:none}
+.d-hero.is-tile img{max-width:none;max-height:none;width:100%;height:100%;object-fit:contain;filter:none;background:#fff}
+.d-hero .mascot-btn{position:absolute;right:12px;bottom:10px;width:84px}
+.d-name{font-family:var(--font-display);font-size:clamp(2rem,5vw,2.8rem);font-weight:500;line-height:1.05;letter-spacing:-.02em}
+.d-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0}
+.d-price{font-family:var(--font-display);font-size:2rem;font-weight:600}
+.d-price small{display:block;font-family:var(--font-body);font-size:.74rem;font-weight:400;color:var(--text-muted)}
+.d-tag{display:inline-flex;align-items:center;gap:6px;padding:5px 13px;border-radius:999px;background:var(--surface-1);font-size:.78rem;font-weight:600;color:var(--text-2)}
+.d-tag.hot{background:rgba(183,93,77,.16);color:var(--accent-text)}
+.d-desc{font-size:1.05rem;color:var(--text-2);margin-top:6px}
+.d-note{margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--surface-1);font-size:.84rem;color:var(--text-2);display:flex;gap:10px}
+.d-note .ico{color:var(--accent-text);margin-top:2px}
+.d-ph{display:grid;place-items:center;gap:8px;text-align:center;padding:20px;color:var(--accent-text)}
+.d-ph svg{width:84px;height:84px}
+.d-ph span{font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--text-muted)}
+
+/* reserva */
+.res .p-body{padding-bottom:12px}
+.steps{display:flex;align-items:center;gap:8px;padding:0 22px 14px;flex:none}
+.steps li{flex:1;height:5px;border-radius:5px;background:var(--line-strong);transition:background-color .3s}
+.steps li.done,.steps li.cur{background:var(--accent-strong)}
+.steps li.cur{background:var(--accent)}
+.step-label{font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent-text)}
+.r-title{font-family:var(--font-display);font-size:clamp(1.7rem,4vw,2.2rem);font-weight:500;line-height:1.1;letter-spacing:-.015em;margin:4px 0 6px}
+.r-help{color:var(--text-muted);font-size:.9rem;margin-bottom:18px}
+.period{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.period button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:18px 16px;border-radius:22px;border:1.5px solid var(--line-strong);text-align:left;background:var(--surface-card);transition:border-color .25s,transform .25s var(--ease),background-color .25s}
+.period button:hover{transform:translateY(-3px);border-color:var(--accent-strong)}
+.period button[aria-pressed="true"]{border-color:var(--accent-strong);background:rgba(183,93,77,.12);box-shadow:inset 0 0 0 1px var(--accent-strong)}
+.period svg{width:46px;height:46px}
+.period b{font-family:var(--font-display);font-size:1.35rem;font-weight:500}
+.period small{color:var(--text-muted);font-size:.78rem;line-height:1.3}
+.period .chk{position:absolute;right:12px;top:12px;width:24px;height:24px;border-radius:50%;background:var(--accent-strong);color:#fff;display:none;place-items:center}
+.period button[aria-pressed="true"] .chk{display:grid}
+.dates{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.date{flex:none;width:64px;min-height:78px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:18px;border:1.5px solid var(--line-strong);background:var(--surface-card);transition:background-color .2s,border-color .2s,color .2s}
+.date small{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.date b{font-family:var(--font-display);font-size:1.5rem;font-weight:500;line-height:1.1}
+.date em{font-style:normal;font-size:.62rem;color:var(--text-muted)}
+.date:hover:not(:disabled){border-color:var(--accent-strong)}
+.date[aria-pressed="true"]{background:var(--text-1);color:var(--surface-0);border-color:var(--text-1)}
+.date[aria-pressed="true"] small,.date[aria-pressed="true"] em{color:inherit;opacity:.8}
+.date:disabled{opacity:.5;cursor:not-allowed;background:transparent;border-style:dashed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:6px}
+.slot{min-height:46px;border-radius:14px;border:1.5px solid var(--line-strong);font-weight:600;background:var(--surface-card);transition:background-color .2s,border-color .2s,color .2s}
+.slot:hover:not(:disabled){border-color:var(--accent-strong)}
+.slot[aria-pressed="true"]{background:var(--accent-strong);border-color:var(--accent-strong);color:#fff}
+.slot:disabled{opacity:.4;text-decoration:line-through;cursor:not-allowed}
+.r-sub{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin:14px 0 6px}
+.r-note{margin-top:14px;padding:12px 14px;border-radius:14px;background:var(--surface-1);font-size:.82rem;color:var(--text-2)}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.field label{font-weight:600;font-size:.9rem}
+.field input{min-height:52px;padding:0 16px;border-radius:16px;border:1.5px solid var(--line-strong);background:var(--surface-card);font-size:1rem}
+.field input:focus{outline:none;border-color:var(--accent-strong);box-shadow:0 0 0 4px rgba(183,93,77,.22)}
+.field input[aria-invalid="true"]{border-color:#C0392B;box-shadow:0 0 0 3px rgba(192,57,43,.15)}
+.err{color:#B3261E;font-size:.82rem;font-weight:500;display:none;gap:6px;align-items:center}
+:root[data-theme="dark"] .err{color:#FF9C92}
+.err.show{display:flex}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 12px;border-radius:20px;border:1.5px solid var(--line-strong);background:var(--surface-card)}
+.stepper output{font-family:var(--font-display);font-size:2.2rem;font-weight:500;min-width:2ch;text-align:center;line-height:1}
+.stepper .u{display:flex;flex-direction:column;align-items:center;font-size:.72rem;color:var(--text-muted)}
+.p-foot{display:flex;gap:10px;justify-content:space-between;padding:14px 22px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line);flex:none;background:var(--surface-0)}
+.p-foot .btn{flex:1}
+.p-foot .btn-ghost{flex:0 0 auto}
+.summary{display:grid;gap:0;border-radius:20px;border:1.5px solid var(--line-strong);overflow:hidden;background:var(--surface-card)}
+.summary div{display:flex;justify-content:space-between;gap:16px;padding:13px 18px;border-bottom:1px dashed var(--line-strong);font-size:.95rem}
+.summary div:last-child{border-bottom:0}
+.summary dt{color:var(--text-muted)}
+.summary dd{font-weight:600;text-align:right;word-break:break-word}
+.demo-box{display:flex;gap:12px;align-items:flex-start;margin-top:16px;padding:16px 18px;border-radius:18px;background:rgba(183,93,77,.14);border:1.5px solid var(--accent);color:var(--text-1);font-weight:600;font-size:.95rem;line-height:1.4}
+.demo-box .ico{color:var(--accent-text);margin-top:2px;width:22px;height:22px}
+.bap-cele{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.bap-cele img{width:104px;height:auto;animation:bob 3.4s ease-in-out infinite;filter:drop-shadow(0 8px 8px rgba(60,25,15,.3))}
+.bap-cele .sp{font-family:var(--font-display);font-style:italic;font-size:1.3rem;line-height:1.2}
+
+/* photocard */
+.card-modal{width:min(calc(100% - 24px),420px);padding:20px;align-items:center;gap:16px;overflow-y:auto}
+.pc{position:relative;width:min(100%,320px);aspect-ratio:3/4.35;border-radius:22px;padding:14px;color:#fff;overflow:hidden;box-shadow:0 30px 50px -20px rgba(0,0,0,.6);background:var(--pc-bg);display:flex;flex-direction:column;border:6px solid #FFFAF4;transition:transform .5s var(--ease)}
+.pc::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,rgba(255,255,255,.3),transparent 60%);pointer-events:none}
+.pc .pc-top{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--font-display);font-weight:600;font-size:1.05rem;position:relative;z-index:1}
+.pc .pc-top .kr{font-size:1.6rem;line-height:1}
+.pc .pc-img{flex:1;min-height:0;display:grid;place-items:center;position:relative;z-index:1}
+.pc .pc-img img{max-height:100%;max-width:92%;object-fit:contain;filter:drop-shadow(0 14px 10px rgba(0,0,0,.35));animation:bob 4.4s ease-in-out infinite}
+.pc .pc-name{position:relative;z-index:1;font-family:var(--font-display);font-size:2rem;font-weight:600;line-height:1;letter-spacing:-.02em}
+.pc .pc-role{position:relative;z-index:1;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.9;margin-top:4px}
+.pc .pc-quote{position:relative;z-index:1;font-size:.88rem;font-style:italic;margin-top:8px;line-height:1.35;font-family:var(--font-display)}
+.pc-tabs{display:flex;gap:8px}
+.pc-tabs button{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;border:2px solid transparent;background:var(--surface-1);transition:transform .25s var(--ease),border-color .2s}
+.pc-tabs button[aria-pressed="true"]{border-color:var(--accent-strong);transform:scale(1.08)}
+.pc-tabs img{width:34px;height:34px;object-fit:contain}
+.pc-about{font-size:.88rem;color:var(--text-2);text-align:center;max-width:36ch;min-height:3.6em}
+.pc-disc{font-size:.74rem;color:var(--text-muted);text-align:center;max-width:38ch;padding:10px 12px;border-radius:12px;background:var(--surface-1)}
+.card-modal .p-close{position:absolute;right:12px;top:12px;z-index:3}
+
+/* sheet "mais" */
+.sheet{position:fixed;left:0;right:0;bottom:0;border-radius:28px 28px 0 0;transform:translateY(104%);padding:10px 18px calc(22px + env(safe-area-inset-bottom));max-height:86dvh;overflow-y:auto}
+.sheet.open{transform:none}
+.sheet .grab{width:44px;height:5px;border-radius:5px;background:var(--line-strong);margin:4px auto 14px}
+.sheet h2{font-family:var(--font-display);font-size:1.4rem;font-weight:500;margin-bottom:10px}
+.sheet nav{display:grid;gap:4px}
+.sheet nav a{display:flex;align-items:center;gap:14px;min-height:52px;padding:0 14px;border-radius:16px;text-decoration:none;font-weight:600}
+.sheet nav a:hover,.sheet nav a[aria-current="true"]{background:var(--surface-1);color:var(--accent-text)}
+.sheet .row{display:flex;align-items:center;justify-content:space-between;padding:14px 14px;margin-top:8px;border-top:1px solid var(--line);font-weight:600}
+@media (min-width:900px){.sheet,#moreOverlay{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .js .reveal{opacity:1;transform:none}
+}
+@media print{.rail,.dock,.overlay,.panel{display:none!important}}
+
+/* ============ scrollbar decorada (painéis, cardápio) ============ */
+.p-body,.card-modal,.sheet{scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+@supports selector(::-webkit-scrollbar){
+  .p-body,.card-modal,.sheet{scrollbar-width:auto;scrollbar-color:auto}
+  .p-body::-webkit-scrollbar{width:14px}
+  .p-body::-webkit-scrollbar-track{margin:6px 0 10px;border-radius:99px;border:5px solid transparent;background:var(--line) padding-box}
+  .p-body::-webkit-scrollbar-thumb{border-radius:99px;border:3px solid transparent;background:linear-gradient(180deg,var(--accent),#7A4A2A) padding-box;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+  :root[data-theme="dark"] .p-body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#EE9A86,#B75D4D) padding-box}
+  .p-body::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--accent-strong),#6A3E22) padding-box}
+  .p-body::-webkit-scrollbar-button{display:none;height:0}
+}
+
+/* ============ horários (reserva e convite) ============ */
+.hrs{display:grid;gap:8px;margin-top:16px;padding:14px;border-radius:18px;background:var(--surface-1)}
+.hrs-t{font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text);margin:0 2px 2px}
+.hrs-row{display:grid;grid-template-columns:76px minmax(0,1fr);align-items:center;gap:8px 12px}
+.hrs-d{font-weight:700;font-size:.9rem}
+.hrs-ps{display:flex;flex-wrap:wrap;gap:8px}
+.hrs-p{display:inline-flex;align-items:baseline;gap:8px;padding:6px 13px;border-radius:999px;background:var(--surface-card);box-shadow:inset 0 0 0 1px var(--line);font-size:.88rem;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hrs-p i{font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.hrs-row.dim .hrs-d{color:var(--text-muted);font-weight:600}
+.hrs-tbc{font-size:.84rem;font-style:italic;color:var(--text-muted)}
+.hrs-n{margin:4px 2px 0;font-size:.78rem;color:var(--text-muted)}
+.hrs.on-inv{margin-top:6px;background:rgba(33,27,26,.3);color:#fff;box-shadow:inset 0 0 0 1px rgba(255,226,210,.14)}
+.hrs.on-inv .hrs-p{background:rgba(255,248,242,.12);box-shadow:inset 0 0 0 1px rgba(255,226,210,.28);color:#fff}
+.hrs.on-inv .hrs-p i{color:#FFD9C6}
+.hrs.on-inv .hrs-row.dim .hrs-d,.hrs.on-inv .hrs-tbc{color:#F3D3C3}
+@media (max-width:480px){.hrs-row{grid-template-columns:minmax(0,1fr)}.hrs-d{font-size:.84rem}}
+
+/* ============ galeria ============ */
+.galeria{background:var(--surface-0)}
+.gal-head{display:flex;flex-direction:column;gap:14px;max-width:62ch;margin-bottom:clamp(28px,4vw,52px)}
+.gal-grid{list-style:none;margin:0;padding:0;columns:2;column-gap:14px}
+.gal-grid li{break-inside:avoid;margin-bottom:14px}
+.gal-item{position:relative;display:block;width:100%;padding:0;border-radius:20px;overflow:hidden;cursor:zoom-in;background:var(--surface-2);box-shadow:var(--shadow-1);transition:transform .4s var(--ease),box-shadow .4s}
+.gal-item img{display:block;width:100%;height:auto;transition:transform .8s var(--ease)}
+.gal-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-2)}
+.gal-item:hover img{transform:scale(1.045)}
+.gal-cap{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);padding:6px 12px;border-radius:999px;background:rgba(20,12,10,.62);color:#F8E2D1;font-size:.74rem;font-weight:500;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);text-align:left}
+@media (min-width:900px){.gal-grid{columns:3;column-gap:18px}.gal-grid li{margin-bottom:18px}}
+.lb{width:min(calc(100% - 24px),760px);padding:14px;align-items:center;gap:12px;background:var(--surface-inverse);color:var(--text-inverse);overflow:hidden}
+.lb .p-close{position:absolute;right:12px;top:12px;z-index:3;background:rgba(20,12,10,.55);color:#F8E2D1;border-color:rgba(248,226,209,.4)}
+.lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;min-height:0;max-width:100%}
+.lb-fig img{display:block;max-width:100%;max-height:calc(100dvh - 190px);width:auto;height:auto;object-fit:contain;border-radius:18px}
+.lb-fig figcaption{font-size:.9rem;color:var(--text-inverse-2);text-align:center}
+.lb-nav{display:flex;align-items:center;gap:18px;font-size:.82rem;color:var(--text-inverse-2);font-variant-numeric:tabular-nums}
+.lb .icon-btn{border-color:rgba(248,226,209,.4);color:var(--text-inverse)}
+.lb .icon-btn:hover{background:var(--color-cream);color:#2A1D1B}
+
+/* ============ mapa ============ */
+.visit-side{display:flex;flex-direction:column;gap:18px;align-self:start}
+.visit-side .visit-photo{align-self:stretch;width:100%}
+.v-map{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:16/10;min-height:220px;background:var(--surface-2);box-shadow:inset 0 0 0 1px var(--line-strong)}
+.v-map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+:root[data-theme="dark"] .v-map iframe{filter:invert(.9) hue-rotate(180deg) saturate(.8) contrast(.92)}
+
+/* ============ marca Or7 no rodapé ============ */
+.foot-bottom .or7{display:block;width:min(100%,360px);height:auto;opacity:.92;margin-top:2px}
+@media (min-width:860px){.foot-bottom .or7{margin-left:auto}}
+.v-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;color:var(--text-2);background:repeating-linear-gradient(135deg,var(--surface-1) 0 14px,var(--surface-2) 14px 15px)}
+.v-ph .ico{width:34px;height:34px;color:var(--accent-text);margin-bottom:4px}
+.v-ph span{font-size:.84rem;color:var(--text-muted)}
+
+@media (min-width:900px) and (max-height:700px){.hero-corner{display:none!important}}
+
+/* toggle menor na sidebar, sem rótulos */
+.rail-theme{justify-content:center}
+.rail-theme .theme-toggle.lg{--w:54px;--h:30px}
+
+/* ============ CARDÁPIO LATERAL — redesign editorial ============ */
+.menu-panel{width:min(100%,640px);background:var(--surface-0);box-shadow:-30px 0 80px -20px rgba(20,8,6,.55),-2px 0 0 var(--line)}
+.menu-panel .mh{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:0 14px;padding:24px 26px 20px;background:linear-gradient(180deg,var(--surface-1),transparent)}
+.menu-panel .mh-main{grid-column:1;min-width:0}
+.mh-eyebrow{font-size:.68rem;font-weight:700;letter-spacing:.24em;color:var(--accent-text);margin-bottom:10px}
+.menu-panel .mh h2{font-size:clamp(2rem,5vw,2.6rem);letter-spacing:-.02em;line-height:1.02}
+.menu-panel .mh .sub{margin-top:8px;font-size:.92rem;color:var(--text-2)}
+.mh-kr{position:absolute;right:86px;top:20px;font-family:var(--font-kr);font-size:2.6rem;line-height:1;color:var(--accent);opacity:.2;letter-spacing:.06em;pointer-events:none;user-select:none}
+.menu-panel .p-close{grid-column:2;grid-row:1;border-color:var(--line-strong);background:var(--surface-card);transition:transform .35s var(--ease),background-color .2s,color .2s,border-color .2s}
+.menu-panel .p-close:hover{transform:rotate(90deg);background:var(--accent-strong);border-color:var(--accent-strong);color:#fff}
+.mh-rule{grid-column:1/-1;display:block;height:1px;margin-top:18px;background:linear-gradient(90deg,var(--accent) 0 56px,var(--line-strong) 56px 100%)}
+.menu-panel .p-back{margin-bottom:6px}
+.menu-panel .m-tools{padding:6px 26px 16px;gap:14px}
+.menu-panel .search input{min-height:52px;background:var(--surface-1);border:1px solid var(--line-strong);font-size:1rem;transition:border-color .25s,box-shadow .25s,background-color .25s}
+.menu-panel .search input::placeholder{color:var(--text-muted)}
+.menu-panel .search input:focus{background:var(--surface-card);border-color:var(--accent-strong);box-shadow:0 0 0 4px rgba(183,93,77,.2)}
+.menu-panel .m-chips{gap:8px;padding:2px 2px 6px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.menu-panel .m-chips .chip{scroll-snap-align:start;min-height:40px;padding:0 17px;font-size:.86rem;border-width:1px;border-color:var(--line-strong);background:transparent;transition:background-color .25s,color .25s,border-color .25s,transform .25s var(--ease)}
+.menu-panel .m-chips .chip:hover{transform:translateY(-1px);border-color:var(--accent-strong);color:var(--accent-text)}
+.menu-panel .m-chips .chip[aria-pressed="true"]{background:var(--accent-strong);border-color:var(--accent-strong);color:#fff;box-shadow:0 8px 18px -10px var(--accent-strong)}
+.menu-panel .m-count{font-size:.76rem;letter-spacing:.06em;color:var(--text-muted)}
+.menu-panel .p-body{padding:0 26px 30px}
+@keyframes mIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.p-body.v-in>*{animation:mIn .45s var(--ease) both}
+.m-group{margin-top:26px}
+.m-group>h3{font-family:var(--font-display);font-size:1.3rem;font-weight:500;color:var(--text-1);display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.m-group>h3 small{order:3;font-family:var(--font-body);font-size:.72rem;font-weight:600;letter-spacing:.1em;color:var(--text-muted)}
+.m-group>h3::after{content:"";flex:1;height:1px;background:var(--line);order:2}
+.cat-hero{position:relative;padding:22px 20px 20px;margin-bottom:8px;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,var(--color-cocoa),#2E2220);color:var(--color-cream)}
+.cat-hero::before{content:"";position:absolute;right:-30px;top:-40px;width:180px;height:180px;border-radius:50% 44% 56% 48%/48% 56% 44% 52%;background:var(--accent);opacity:.32}
+.cat-hero::after{content:"";position:absolute;left:20px;right:20px;bottom:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent-on-inverse) 0 48px,transparent 48px)}
+.ch-k{position:relative;font-size:.66rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--accent-on-inverse)}
+.ch-t{position:relative;font-family:var(--font-display);font-weight:500;font-size:clamp(2.1rem,6vw,2.9rem);line-height:1.02;letter-spacing:-.02em;margin-top:6px;text-transform:uppercase}
+.ch-d{position:relative;font-family:var(--font-display);font-style:italic;font-size:1.05rem;margin-top:6px;color:#EAD3C4}
+.ch-n{position:relative;display:inline-block;margin-top:12px;font-size:.74rem;font-weight:600;letter-spacing:.1em;color:var(--accent-on-inverse)}
+.mc-list{display:flex;flex-direction:column}
+.menu-panel .m-item.mc{position:relative;display:grid;grid-template-columns:clamp(112px,32%,160px) minmax(0,1fr);align-items:stretch;gap:18px;padding:16px 0;border-radius:0;border-bottom:1px solid var(--line);background:transparent;transition:transform .35s var(--ease),border-color .3s;animation:mIn .5s var(--ease) both;animation-delay:calc(var(--i,0)*45ms)}
+.menu-panel .m-item.mc:last-child{border-bottom:0}
+.menu-panel .m-item.mc:hover{background:transparent;transform:translateY(-3px);border-bottom-color:var(--accent)}
+.menu-panel .m-item.mc[aria-current="true"]{background:transparent}
+.menu-panel .m-item.mc:focus-visible{outline-offset:4px;border-radius:18px}
+.mc-ph{position:relative;display:block;aspect-ratio:4/5;border-radius:20px;overflow:hidden;background:var(--surface-2);box-shadow:var(--shadow-1)}
+.mc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.menu-panel .m-item.mc:hover .mc-ph img{transform:scale(1.045)}
+.mc-ph.is-contain::before,.d-hero.is-contain::before{content:"";position:absolute;inset:-20px;background:var(--bg) center/cover;filter:blur(16px) saturate(1.1) brightness(.85)}
+.mc-ph.is-contain img,.d-hero.is-contain img{object-fit:contain}
+.mc-body{display:flex;flex-direction:column;min-width:0;padding:4px 0 2px}
+.mc-num{font-size:.7rem;font-weight:700;letter-spacing:.2em;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.menu-panel .mc-name{font-family:var(--font-display);font-weight:500;font-size:clamp(1.3rem,3.6vw,1.65rem);line-height:1.08;letter-spacing:-.015em;margin-top:6px;color:var(--text-1)}
+.menu-panel .mc-desc{font-size:.9rem;line-height:1.5;color:var(--text-muted);margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mc-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:auto;padding-top:12px}
+.menu-panel .mc-price{font-family:var(--font-display);font-weight:600;font-size:1.45rem;line-height:1;color:var(--accent-text);white-space:nowrap}
+.mc-go{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:600;letter-spacing:.06em;color:var(--text-muted);transition:color .25s}
+.mc-go .ico{width:16px;height:16px;transition:transform .3s var(--ease)}
+.menu-panel .m-item.mc:hover .mc-go{color:var(--accent-text)}
+.menu-panel .m-item.mc:hover .mc-go .ico{transform:translateX(4px)}
+.m-empty{display:flex;flex-direction:column;align-items:center;gap:6px;padding:48px 16px}
+.m-empty-ico{width:120px;height:96px;color:var(--accent);margin-bottom:10px}
+.m-empty b{font-size:1.5rem;margin:0}
+.m-empty .btn{margin-top:14px}
+.menu-panel .m-foot{margin-top:30px;padding:16px 0 0;border-radius:0;background:transparent;border-top:1px solid var(--line);font-size:.78rem;line-height:1.55;color:var(--text-muted)}
+.mf-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.mf-top b{font-size:.68rem;letter-spacing:.3em;color:var(--accent-text)}
+.mf-rule{flex:1;height:1px;background:var(--line)}
+/* detalhe */
+.menu-panel .d-hero{aspect-ratio:5/6;max-height:64dvh;border-radius:26px;box-shadow:var(--shadow-2);background:var(--surface-2)}
+.menu-panel .d-hero.is-photo img{object-position:center}
+.menu-panel .d-hero.is-contain{aspect-ratio:4/3}
+.menu-panel .d-name{font-size:clamp(2.1rem,6vw,3rem);margin-top:4px}
+.menu-panel .d-price{color:var(--accent-text)}
+@media (max-width:520px){
+  .menu-panel .mh{padding:calc(18px + env(safe-area-inset-top)) 18px 16px}
+  .mh-kr{right:70px;font-size:2.1rem;top:calc(16px + env(safe-area-inset-top))}
+  .menu-panel .m-tools{padding:4px 18px 14px}
+  .menu-panel .p-body{padding:0 18px calc(26px + env(safe-area-inset-bottom))}
+  .menu-panel .m-item.mc{grid-template-columns:104px minmax(0,1fr);gap:14px}
+  .mc-go{display:none}
+  .menu-panel .mc-price{font-size:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){.p-body.v-in>*,.menu-panel .m-item.mc{animation:none}.mc-ph img,.mc-go .ico{transition:none}}
+.cat-hero .ch-t{display:block;margin-bottom:0}
+.cat-hero .ch-t::after{content:none!important}
+.mc-ph{align-self:start;width:100%}
+.search input[type="search"]::-webkit-search-cancel-button,.search input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+
+@media (min-width:900px){
+  .rail{padding:18px 12px 14px}
+  .rail-brand img{height:50px}
+  .rail a.nav-i{height:40px;padding:0 12px;gap:12px;font-size:.9rem}
+  .rail .nav-cta{height:46px;font-size:.9rem}
+}
+
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-house" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /></symbol><symbol id="i-utensils" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+  <path d="M7 2v20" />
+  <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" />
+  <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" />
+  <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" /></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="M12 16v-4" />
+  <path d="M12 8h.01" /></symbol><symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol><symbol id="i-calendar-check" viewBox="0 0 24 24"><path d="M8 2v3" />
+  <path d="M16 2v3" />
+  <rect x="3" y="3" width="18" height="18" rx="2" />
+  <path d="M3 9h18" />
+  <path d="m9 15 2 2 4-4" /></symbol><symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+  <circle cx="12" cy="10" r="3" /></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" />
+  <path d="m6 6 12 12" /></symbol><symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></symbol><symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14" />
+  <path d="m12 5 7 7-7 7" /></symbol><symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7" />
+  <path d="M19 12H5" /></symbol><symbol id="i-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34" />
+  <circle cx="11" cy="11" r="8" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-ellipsis" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" />
+  <circle cx="19" cy="12" r="1" />
+  <circle cx="5" cy="12" r="1" /></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" />
+  <path d="M12 5v14" /></symbol><symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" /></symbol><symbol id="i-external-link" viewBox="0 0 24 24"><path d="M15 3h6v6" />
+  <path d="M10 14 21 3" />
+  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <path d="M12 6v6l4 2" /></symbol><symbol id="i-accessibility" viewBox="0 0 24 24"><circle cx="16" cy="4" r="1" />
+  <path d="m18 19 1-7-6 1" />
+  <path d="m5 8 3-3 5.5 3-2.36 3.5" />
+  <path d="M4.24 14.5a5 5 0 0 0 6.88 6" />
+  <path d="M13.76 17.5a5 5 0 0 0-6.88-6" /></symbol><symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20a10 10 0 0010-10 25.9 25.9 0 00-1.04-7.281 1 1 0 00-1.755-.325C15.833 5.5 13 5.5 9.8 6.1A7 7 0 0011 20" />
+  <path d="M2 21a5 5 0 012.911-4.544C7.613 15.212 8.351 15.24 11 13" /></symbol><symbol id="i-shopping-bag" viewBox="0 0 24 24"><path d="M16 10a4 4 0 0 1-8 0" />
+  <path d="M3.103 6.034h17.794" />
+  <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></symbol><symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" /></symbol><symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+  <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" /></symbol><symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+  <path d="M20 2v4" />
+  <path d="M22 4h-4" />
+  <circle cx="4" cy="20" r="2" /></symbol><symbol id="i-heart" viewBox="0 0 24 24"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /></symbol><symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+  <circle cx="7" cy="17" r="2" />
+  <path d="M9 17h6" />
+  <circle cx="17" cy="17" r="2" /></symbol><symbol id="i-soup" viewBox="0 0 24 24"><path d="M11.248 3c.273.1.808.53.747 1.36-.05.83-.938 1.2-.989 2.02-.06.78.333 1.24.727 1.62" />
+  <path d="M16.252 3c.268.1.794.53.745 1.36-.06.83-.923 1.2-.993 2.02-.05.78.338 1.24.725 1.62" />
+  <path d="M19.5 12 22 6" />
+  <path d="M4 12a1 1 0 00-.99 1.133A9 9 0 0012 21a9 9 0 008.99-7.867A1 1 0 0020 12z" />
+  <path d="M6.252 3c.268.1.794.53.745 1.36-.06.83-.923 1.2-.993 2.02-.05.78.338 1.24.735 1.62" />
+  <path d="M7 21h10" /></symbol><symbol id="i-package" viewBox="0 0 24 24"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" />
+  <path d="M12 22V12" />
+  <polyline points="3.29 7 12 12 20.71 7" />
+  <path d="m7.5 4.27 9 5.15" /></symbol><symbol id="i-circle-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" />
+  <line x1="12" x2="12" y1="8" y2="12" />
+  <line x1="12" x2="12.01" y1="16" y2="16" /></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" /></symbol><symbol id="i-camera" viewBox="0 0 24 24"><path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/></symbol></svg>
+
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<div id="app">
+
+  <!-- ===== Sidebar desktop (OPÇÃO C: apenas ícones) ===== -->
+  <aside class="rail" aria-label="Navegação principal">
+    <a class="rail-brand" href="#inicio" aria-label="Saiso K-food market — voltar ao início"><img src="assets/branding/logo-saiso.png" width="812" height="630" alt="Saiso, 사이소, K-food market"></a>
+    <nav class="rail-nav" aria-label="Seções">
+      <a class="nav-i" href="#inicio" data-sec="inicio" aria-label="Início"><svg class="ico" aria-hidden="true"><use href="#i-house"/></svg><span>Início</span></a>
+      <a class="nav-i" href="#sobre" data-sec="sobre" aria-label="Sobre a Saiso"><svg class="ico" aria-hidden="true"><use href="#i-book-open"/></svg><span>Sobre</span></a>
+      <a class="nav-i" href="#sabores" data-sec="sabores" aria-label="Sabores em destaque"><svg class="ico" aria-hidden="true"><use href="#i-utensils"/></svg><span>Sabores</span></a>
+      <a class="nav-i" href="#market" data-sec="market" aria-label="Saiso Market"><svg class="ico" aria-hidden="true"><use href="#i-shopping-bag"/></svg><span>Market</span></a>
+      <a class="nav-i" href="#galeria" data-sec="galeria" aria-label="Galeria de fotos"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg><span>Galeria</span></a>
+      <a class="nav-i" href="#avaliacoes" data-sec="avaliacoes" aria-label="Avaliações"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg><span>Avaliações</span></a>
+      <a class="nav-i" href="#reservas" data-sec="reservas" aria-label="Convite de reservas"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Reservas</span></a>
+      <a class="nav-i" href="#visite" data-sec="visite" aria-label="Visite a Saiso"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Visite-nos</span></a>
+    </nav>
+    <div class="rail-bottom">
+      <button class="nav-cta" type="button" data-open="reserve" aria-label="Reservar mesa (demonstração)"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Reservar mesa</span></button>
+      <div class="rail-theme">
+        <button class="theme-toggle lg" type="button" data-theme-toggle aria-pressed="false" aria-label="Ativar modo escuro"><svg class="tt-cloud c1" viewBox="0 0 40 20" aria-hidden="true"><path d="M4 16c-2.6 0-3.2-3.6-.6-4.6C3.2 8 7.4 6.8 9 9.4 10.4 5.4 15.8 5.4 16.8 9.6c2.6-1 5.2.6 4.6 3.4-.3 1.7-1.6 3-3.2 3z"/></svg><span class="tt-orb"></span></button>
+      </div>
+      <p class="rail-loc"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg><span>Curitiba · PR<br>Korean Food Market</span></p>
+    </div>
+  </aside>
+
+  <!-- ===== Topo mobile ===== -->
+  <div class="topbar">
+    <a class="logo-tile sm" href="#inicio" aria-label="Saiso K-food market — início"><img src="assets/branding/logo-saiso.png" width="812" height="630" alt="Saiso, 사이소, K-food market"></a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false" aria-label="Ativar modo escuro"><svg class="tt-cloud c1" viewBox="0 0 40 20" aria-hidden="true"><path d="M4 16c-2.6 0-3.2-3.6-.6-4.6C3.2 8 7.4 6.8 9 9.4 10.4 5.4 15.8 5.4 16.8 9.6c2.6-1 5.2.6 4.6 3.4-.3 1.7-1.6 3-3.2 3z"/></svg><span class="tt-orb"></span></button>
+  </div>
+
+  <main id="conteudo">
+
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="wrap hero-body">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow a" style="--d:.1s">Saiso – Korean Food Market · Curitiba, PR</p>
+            <h1 id="hero-title"><span class="a l1" style="--d:.18s">Sinta.</span><span class="a l2" style="--d:.3s">Prove.</span><span class="a l3" style="--d:.42s">Descubra.</span></h1>
+            <p class="hero-lead a" style="--d:.55s">Gastronomia, cultura e sabores coreanos em Curitiba.</p>
+            <div class="hero-cta a" style="--d:.65s">
+              <a class="btn btn-primary" href="#sabores">Explorar cardápio <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+              <button class="btn btn-ghost" type="button" data-open="reserve">Reservar mesa</button>
+            </div>
+            <ul class="hero-facts a" style="--d:.75s">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-store"/></svg>Restaurante e mercado coreano</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-package"/></svg>No local e para viagem</li>
+            </ul>
+            <div class="prints a" style="--d:.9s">
+              <figure class="print"><img src="assets/fotos/fachada-saiso.webp" width="1008" height="1024" alt="Fachada da Saiso com letreiro luminoso redondo, em Curitiba" decoding="async"><figcaption>Fachada</figcaption></figure>
+              <figure class="print"><img src="assets/market/mercearia-saiso.webp" width="1024" height="747" alt="Prateleiras de madeira da mercearia da Saiso" decoding="async"><figcaption>Mercearia</figcaption></figure>
+              <p class="prints-note"><svg class="curl" viewBox="0 0 60 50" aria-hidden="true"><path d="M52 6C34 2 12 12 12 30c0 7 5 12 12 11 6-1 7-8 2-10-5-2-9 3-6 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 38l-3 8 8-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Mais que um restaurante, um pedacinho da Coreia em Curitiba.</p>
+            </div>
+          </div>
+
+          <div class="hero-art art-a">
+            <img class="brush" src="assets/decoracao/pincelada-editorial.svg" alt="" width="800" height="800" aria-hidden="true">
+            <div class="offset" aria-hidden="true"></div>
+            <div class="hero-photo">
+              <picture>
+                <source type="image/webp" srcset="assets/fotos/jeyuk-real-720.webp 720w, assets/fotos/jeyuk-real-1080.webp 1080w" sizes="(min-width:900px) 40vw, 90vw">
+                <img src="assets/fotos/jeyuk-real-1080.jpg" width="1080" height="1253" fetchpriority="high" decoding="async" alt="Jeyuk: carne de porco ao molho picante sobre folhas de alface em prato branco canelado, com arroz, pepino e kimchi ao fundo e hashi segurando um pedaço">
+              </picture>
+            </div>
+            <div class="stamp" aria-hidden="true"><span>사이소</span></div>
+            <div class="hero-tag"><b>Jeyuk<i lang="ko" aria-hidden="true">제육</i></b><small>Foto real · Instagram da Saiso</small></div>
+            <button class="mascot-btn ramy" type="button" data-card="ramy" aria-label="Conhecer o Ramy, um dos Saiso Friends (conceito proposto)"><img src="assets/mascotes/ramy.webp" width="720" height="644" alt="Ramy, mascote conceitual: tigela de lámen com fones de ouvido vermelhos"></button>
+            <p class="hero-note" aria-hidden="true">Comida que aproxima pessoas</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-corner">
+        <span class="hc-kr" lang="ko" aria-hidden="true">맛있는 시간</span>
+        <p><span>Boa comida.</span><span>Boas histórias.</span><span>Sempre bem-vindos.</span></p>
+      </div>
+    </section>
+
+    <!-- ================= EXPERIÊNCIA ================= -->
+    <section class="sec" id="sobre" aria-labelledby="sobre-t">
+      <div class="wrap exp-grid">
+        <div class="exp-collage reveal" aria-label="Fotografias reais da Saiso">
+          <span class="tape" aria-hidden="true"></span>
+          <figure class="f1"><img src="assets/fotos/fachada-saiso.webp" width="1008" height="1024" loading="lazy" decoding="async" alt="Fachada da Saiso: letreiro luminoso redondo com a logo, árvore e floreiras cor-de-rosa"></figure>
+          <figure class="f2"><img src="assets/market/mercearia-saiso.webp" width="1024" height="747" loading="lazy" decoding="async" alt="Mercearia da Saiso com prateleiras de madeira cheias de produtos e geladeira de bebidas"></figure>
+          <figure class="f3"><img src="assets/galeria/mesa-panelas.webp" width="960" height="1200" loading="lazy" decoding="async" alt="Mesa vista de cima com panelas douradas de lámen e jjigae, tigelas de arroz, hashis e colheres"><figcaption>Mesa da Saiso</figcaption></figure>
+          <div class="stamp seal" aria-hidden="true"><span>사이소</span></div>
+        </div>
+        <div class="exp-text">
+          <p class="eyebrow reveal">A experiência Saiso</p>
+          <h2 class="h2 reveal" id="sobre-t" style="--d:.05s">Sabores autênticos da Coreia <em>em um só lugar.</em></h2>
+          <blockquote class="exp-quote reveal" style="--d:.1s">
+            Nosso restaurante oferece uma verdadeira imersão na culinária coreana, com pratos tradicionais preparados com ingredientes frescos e receitas originais. Um ambiente acolhedor e atendimento cuidadoso completam sua jornada pelos sabores da Coreia.
+            <footer>Texto de apresentação do cardápio digital da Saiso, conforme material fornecido.</footer>
+          </blockquote>
+          <ul class="feat-list reveal" style="--d:.15s">
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-store"/></svg></span><div><b>Restaurante e mercado</b><span class="d">Refeição à mesa e uma mercearia coreana no mesmo endereço.</span></div></li>
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-package"/></svg></span><div><b>No local ou para viagem</b><span class="d">Modalidades indicadas na listagem do estabelecimento.</span></div></li>
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg></span><div><b>Aceita reservas</b><span class="d">Segundo os dados fornecidos. Nesta demo, a reserva é apenas simulada.</span></div></li>
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-leaf"/></svg></span><div><b>Opções vegetarianas</b><span class="d">Indicadas na listagem; confirme os pratos com a equipe.</span></div></li>
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-heart"/></svg></span><div><b>Atendimento e ambiente</b><span class="d">Clientes destacam atendimento cuidadoso e ambiente acolhedor.</span></div></li>
+            <li><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-sparkles"/></svg></span><div><b>K-pop na ambientação</b><span class="d">Detalhe citado por clientes nas avaliações.</span></div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SABORES (revista) ================= -->
+    <section class="sec sabores on-dark" id="sabores" aria-labelledby="sab-t">
+      <div class="wrap">
+        <header class="sab-head">
+          <p class="eyebrow reveal">Sabores em destaque</p>
+          <h2 class="h2 reveal" id="sab-t" style="--d:.05s">Oito pratos para começar a <em style="color:var(--accent-on-inverse)">descobrir.</em></h2>
+          <p class="lead reveal" style="--d:.1s">Navegue pelos destaques do cardápio, um de cada vez. Valores conforme as capturas do cardápio digital fornecido, sujeitos à confirmação.</p>
+        </header>
+
+        <div class="mag" id="mag" role="region" aria-roledescription="galeria" aria-label="Pratos em destaque">
+          <div class="stage reveal" id="stage">
+            <div class="ghost" id="ghost" aria-hidden="true">01</div>
+            <div class="ring" aria-hidden="true"></div>
+            <div class="disc" aria-hidden="true"></div>
+            <div class="shadow" aria-hidden="true"></div>
+            <div class="dish" id="dish"><img id="dishImg" src="" alt="" width="578" height="308"></div>
+          </div>
+          <div class="mag-copy reveal" style="--d:.08s">
+            <div class="mag-info" id="magInfo">
+            <p class="mag-count"><span id="magCount">01 / 08</span><span class="bar" aria-hidden="true"></span></p>
+            <h3 class="mag-name" id="magName">Chicken (Gochujang)</h3>
+            <div class="mag-meta" id="magMeta"></div>
+            <p class="mag-desc" id="magDesc"></p>
+            <div class="mag-price"><b id="magPrice"></b><small>Valor conforme captura do cardápio · sujeito à confirmação</small></div>
+            <div class="tteok-pop" id="tteokPop" hidden>
+              <button class="mascot-btn" type="button" data-card="tteok" aria-label="Conhecer o Tteok, mascote conceitual dos pratos intensos"><img src="assets/mascotes/tteok.webp" width="514" height="724" alt="Tteok, mascote conceitual de óculos escuros" loading="lazy" decoding="async"></button>
+              <span>Tteok, dos Saiso Friends, aparece nos pratos que o cardápio descreve como apimentados.</span>
+            </div>
+            </div>
+            <div class="mag-actions">
+              <button class="btn btn-primary" type="button" id="magDetails">Ver detalhes</button>
+              <div class="mag-nav" role="group" aria-label="Navegar entre os pratos">
+                <button class="icon-btn" type="button" id="magPrev" aria-label="Prato anterior"><svg class="ico" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                <button class="icon-btn" type="button" id="magNext" aria-label="Próximo prato"><svg class="ico" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <span class="mag-vert" lang="ko" aria-hidden="true">맛있는 시간</span>
+          <p class="sr-only" id="magLive" aria-live="polite"></p>
+        </div>
+
+        <div class="thumbs" id="thumbs" role="group" aria-label="Escolha um prato em destaque"></div>
+        <div class="mag-full"><button class="btn btn-inv" type="button" data-open="menu">Ver cardápio completo <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></button></div>
+        <p class="sab-foot note">Descrições resumidas a partir do cardápio digital fornecido. As imagens ilustrativas representam o prato; o servido pode variar.</p>
+      </div>
+    </section>
+
+    <!-- ================= SAISO MARKET ================= -->
+    <section class="sec market" id="market" aria-labelledby="mk-t">
+      <div class="wrap mk-grid">
+        <div class="mk-photo reveal">
+          <span class="tape" aria-hidden="true"></span>
+          <div class="frame"><img src="assets/market/mercearia-saiso.webp" width="1024" height="747" loading="lazy" decoding="async" alt="Mercearia da Saiso: prateleiras de madeira com produtos e geladeira de bebidas"></div>
+          <span class="sticker s1" aria-hidden="true">사이소!</span>
+          <span class="sticker s2" aria-hidden="true">K-market</span>
+          <span class="sticker s3" aria-hidden="true">Foto real do espaço</span>
+          <svg class="star-deco" style="left:-2%;top:6%" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6z"/></svg>
+          <svg class="star-deco" style="right:12%;bottom:-8%;width:22px;height:22px" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 21l-2.6-7.4L2 11l7.4-2.6z"/></svg>
+        </div>
+        <div class="mk-copy">
+          <p class="eyebrow reveal">Saiso Market</p>
+          <h2 class="h2 reveal" id="mk-t" style="--d:.05s">Muito mais que <em>um restaurante.</em></h2>
+          <p class="lead reveal" style="--d:.1s">Além das mesas, a Saiso tem uma mercearia coreana, como mostram as fotos do espaço e os relatos de clientes. Abaixo, uma vitrine virtual ilustrativa com bebidas coreanas.</p>
+          <div class="reveal" style="--d:.12s">
+            <p class="mk-label"><svg class="ico" aria-hidden="true"><use href="#i-info"/></svg>Seleção ilustrativa: a disponibilidade na mercearia não está confirmada nesta demo.</p>
+            <div class="mk-chips" role="group" aria-label="Filtrar produtos por categoria" id="mkChips"></div>
+            <p class="sr-only" id="mkLive" aria-live="polite"></p>
+            <ul class="mk-cards" id="mkCards"></ul>
+          </div>
+          <div class="mandu-wrap reveal" style="--d:.15s">
+            <button class="mascot-btn" type="button" data-card="mandu" aria-label="Conhecer o Mandu, mascote conceitual do market"><img src="assets/mascotes/mandu.webp" width="565" height="465" alt="Mandu, mascote conceitual: dumpling com bolsa vermelha e bandeirinha" loading="lazy" decoding="async"></button>
+            <div class="bubble" id="mandu-bubble" aria-live="polite"><b>Mandu · Saiso Friends</b><span id="mandu-msg">Vamos explorar?</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALERIA ================= -->
+    <section class="sec galeria" id="galeria" aria-labelledby="gal-t">
+      <div class="wrap">
+        <header class="gal-head">
+          <p class="eyebrow reveal">Galeria</p>
+          <h2 class="h2 reveal" id="gal-t" style="--d:.05s">Um pedacinho da Coreia <em>em Curitiba.</em></h2>
+          <p class="lead reveal" style="--d:.1s">Fotos do espaço e da mesa da Saiso, conforme o material fornecido. Toque em uma foto para ampliar.</p>
+        </header>
+        <ul class="gal-grid reveal" id="galGrid" aria-label="Fotos da Saiso">
+          <li><button class="gal-item" type="button" data-gal="mesa-cerveja"><img src="assets/galeria/mesa-cerveja.webp" alt="Mesa com cestas de frango frito e batata frita, copos de cerveja e uma garrafa verde de soju" loading="lazy" decoding="async"><span class="gal-cap">Mesa com frango frito, batata e cervejas</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="parede-soju"><img src="assets/galeria/parede-soju.webp" alt="Parede de tijolos com prateleiras cheias de garrafas verdes de soju e um letreiro de neon" loading="lazy" decoding="async"><span class="gal-cap">Parede de garrafas</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="prato-arroz"><img src="assets/galeria/prato-arroz.webp" alt="Prato preto com carne cozida, batatas e cebolinha sobre arroz, com kimchi ao lado, em mesa de madeira" loading="lazy" decoding="async"><span class="gal-cap">Prato com arroz</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="bandeira-prato"><img src="assets/galeria/bandeira-prato.webp" alt="Prato preto com carne e arroz sobre tábua de madeira, em frente a um mural da bandeira da Coreia do Sul" loading="lazy" decoding="async"><span class="gal-cap">Prato diante da bandeira</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="polaroids"><img src="assets/galeria/polaroids.webp" alt="Várias fotos instantâneas de equipe e clientes espalhadas sobre uma mesa de madeira" loading="lazy" decoding="async"><span class="gal-cap">Fotos instantâneas</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="salao"><img src="assets/galeria/salao.webp" alt="Salão da Saiso com mesas de madeira, cadeiras de metal, luminárias e prateleiras ao fundo" loading="lazy" decoding="async"><span class="gal-cap">Salão</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="mesa-panelas"><img src="assets/galeria/mesa-panelas.webp" alt="Mesa vista de cima com panelas douradas, tigelas de arroz, hashis e colheres" loading="lazy" decoding="async"><span class="gal-cap">Panelas na mesa</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="entrada-letreiro"><img src="assets/galeria/entrada-letreiro.webp" alt="Vista da entrada da Saiso, com o letreiro redondo visto pelo vidro, mesas e a rua ao fundo" loading="lazy" decoding="async"><span class="gal-cap">Entrada e letreiro</span></button></li>
+          <li><button class="gal-item" type="button" data-gal="parede-tijolos"><img src="assets/galeria/parede-tijolos.webp" alt="Cantinho do salão com parede de tijolos, quadros, mesas de madeira e cadeiras pretas" loading="lazy" decoding="async"><span class="gal-cap">Parede de tijolos</span></button></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= AVALIAÇÕES ================= -->
+    <section class="sec" id="avaliacoes" aria-labelledby="rev-t">
+      <div class="wrap">
+        <header class="rev-head">
+          <p class="eyebrow reveal">Avaliações</p>
+          <h2 class="h2 reveal" id="rev-t" style="--d:.05s">Quem prova, <em>se apaixona.</em></h2>
+          <div class="rating reveal" style="--d:.1s">
+            <span class="big">4,6<small>/5</small></span>
+            <span class="stars" role="img" aria-label="Nota 4,6 de 5"><i></i></span>
+            <span class="meta"><b>710 avaliações</b><span>Google, segundo dados fornecidos para a demo (não atualizado em tempo real).</span></span>
+          </div>
+        </header>
+        <div class="rev-grid reveal" role="region" aria-roledescription="carrossel" aria-label="Depoimentos de clientes">
+          <article class="rev-main" id="revMain" tabindex="0" aria-label="Depoimento em destaque. Use as setas do teclado para trocar.">
+            <p class="kind" id="revKind"></p>
+            <blockquote id="revQuote"></blockquote>
+            <p class="rev-extra" id="revExtra"></p>
+            <div class="rev-by">
+              <div><b id="revName"></b><small>Avaliação no Google · dados fornecidos para a demo</small></div>
+              <div class="rev-ctrl">
+                <button class="icon-btn" type="button" id="revPrev" aria-label="Depoimento anterior" style="border-color:rgba(248,226,209,.4);color:#F8E2D1"><svg class="ico" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+                <button class="icon-btn" type="button" id="revNext" aria-label="Próximo depoimento" style="border-color:rgba(248,226,209,.4);color:#F8E2D1"><svg class="ico" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+              </div>
+            </div>
+          </article>
+          <ul class="rev-list" id="revList" aria-label="Outros depoimentos"></ul>
+        </div>
+        <p class="sr-only" id="revLive" aria-live="polite"></p>
+        <div class="rev-foot note">
+          <span>Citações entre aspas são trechos exatos; os demais são resumos fiéis das avaliações recebidas.</span>
+          <a href="https://www.google.com/search?q=Saiso+Korean+Food+Market+Curitiba" target="_blank" rel="noopener noreferrer">Pesquisar a Saiso no Google (busca genérica, abre em nova aba)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONVITE DE RESERVAS ================= -->
+    <section class="invite" id="reservas" aria-labelledby="inv-t">
+      <div class="wrap inv-grid">
+        <div class="inv-copy">
+          <p class="eyebrow inv" style="color:#FFE2D2">Reservas</p>
+          <h2 class="h2" id="inv-t">Guarde um lugar <em>à mesa.</em></h2>
+          <p>Escolha almoço ou jantar, o dia, o horário e quantas pessoas. Simule o passo a passo em quatro etapas.</p>
+          <div class="hrs on-inv" role="group" aria-label="Horários informados">
+              <div class="hrs-row"><span class="hrs-d">Seg–Qui</span><span class="hrs-ps"><span class="hrs-p"><i>Almoço</i>11h30–14h30</span><span class="hrs-p"><i>Jantar</i>18h–21h30</span></span></div>
+              <div class="hrs-row"><span class="hrs-d">Sex–Sáb</span><span class="hrs-ps"><span class="hrs-p"><i>Almoço</i>11h30–15h</span><span class="hrs-p"><i>Jantar</i>18h–22h</span></span></div>
+              <div class="hrs-row dim"><span class="hrs-d">Domingo</span><span class="hrs-ps"><span class="hrs-tbc">Fechado</span></span></div>
+            </div>
+          <button class="btn btn-primary" type="button" data-open="reserve">Reservar mesa <svg class="ico" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+          <p class="note">Demonstração: nenhuma reserva é enviada ou confirmada pelo restaurante.</p>
+        </div>
+        <div class="inv-art" aria-hidden="false">
+          <img class="bap" src="assets/mascotes/bap.webp" width="702" height="720" alt="Bap, mascote conceitual: tigela de arroz com chapéu marrom" loading="lazy" decoding="async">
+          <span class="tag">Bap · Saiso Friends</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VISITE ================= -->
+    <section class="sec" id="visite" aria-labelledby="vis-t">
+      <div class="wrap">
+        <header style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(28px,4vw,48px)">
+          <p class="eyebrow reveal">Visite a Saiso</p>
+          <h2 class="h2 reveal" id="vis-t" style="--d:.05s">No coração de <em>Curitiba.</em></h2>
+        </header>
+        <div class="visit-grid">
+          <div class="visit-side reveal">
+            <figure class="visit-photo"><img src="assets/fotos/fachada-saiso.webp" width="1008" height="1024" loading="lazy" decoding="async" alt="Fachada da Saiso com letreiro luminoso redondo e floreiras cor-de-rosa"><figcaption>Fachada da Saiso · foto real</figcaption></figure>
+          <div class="v-map">
+            <div class="v-ph" aria-hidden="true"><svg class="ico"><use href="#i-map-pin"/></svg><b>R. Nunes Machado, 30</b><span>Centro, Curitiba — PR</span></div>
+              <iframe title="Mapa do Google com a localização da Saiso, R. Nunes Machado, 30, Curitiba" src="https://www.google.com/maps?q=R.%20Nunes%20Machado%2C%2030%2C%20Curitiba%20-%20PR%2C%2080250-000&amp;hl=pt-BR&amp;z=17&amp;output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+          <div class="visit-card reveal" style="--d:.08s">
+            <div class="visit-rows">
+              <div class="v-row"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg></span><div><h3>Endereço</h3><address>R. Nunes Machado, 30<br>Centro, Curitiba — PR, 80250-000</address></div></div>
+              <div class="v-row"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg></span><div><h3>Telefone</h3><p><a href="tel:+5541987234385">(41) 98723-4385</a></p></div></div>
+              <div class="v-row"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-clock"/></svg></span><div><h3>Horários informados</h3>
+                <dl class="hours">
+                  <dt>Seg–Qui</dt><dd>11h30–14h30 · 18h–21h30</dd>
+                  <dt>Sex–Sáb</dt><dd>11h30–15h · 18h–22h</dd>
+                  <dt>Domingo</dt><dd class="tbc">Fechado</dd>
+                </dl>
+                <p class="note" style="margin-top:6px">Horários fornecidos para a demo; confirme antes de visitar.</p></div></div>
+              <div class="v-row"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg></span><div><h3>Faixa informada por pessoa</h3><p>R$ 40–120 <span class="note">(estimativa de consumo, não é preço de cardápio)</span></p></div></div>
+              <div class="v-row"><span class="ic"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></span><div><h3>Nota informada</h3><p>4,6 · 710 avaliações <span class="note">(dado fornecido, não em tempo real)</span></p></div></div>
+            </div>
+            <ul class="svc" aria-label="Serviços e características">
+              <li><svg class="ico" aria-hidden="true"><use href="#i-utensils"/></svg>Refeições no local</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-package"/></svg>Para viagem</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg>Aceita reservas</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-leaf"/></svg>Opções vegetarianas</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-accessibility"/></svg>Assentos e banheiro acessíveis*</li>
+              <li><svg class="ico" aria-hidden="true"><use href="#i-car"/></svg>Estacionamento acessível*</li>
+            </ul>
+            <p class="note">* Informações de listagem relatadas pelo usuário, não auditadas. Confirme a acessibilidade com o restaurante.</p>
+            <div class="v-actions">
+              <a class="btn btn-primary" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20Nunes%20Machado%2C%2030%2C%20Curitiba%20PR" target="_blank" rel="noopener noreferrer">Como chegar (Google Maps)<span class="sr-only">, abre em nova aba</span> <svg class="ico" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+              <a class="btn btn-ghost" href="tel:+5541987234385"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Ligar</a>
+              <button class="btn btn-ghost" type="button" data-open="reserve">Reservar (demo)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div>
+          <a class="logo-tile" href="#inicio" aria-label="Saiso — início"><img src="assets/branding/logo-saiso.png" width="812" height="630" alt="Saiso, 사이소, K-food market" loading="lazy"></a>
+          <p class="foot-slogan">Sinta. Prove. Descubra.</p>
+        </div>
+        <div>
+          <h3>Contato</h3>
+          <ul>
+            <li>R. Nunes Machado, 30<br>Centro, Curitiba — PR, 80250-000</li>
+            <li><a href="tel:+5541987234385">(41) 98723-4385</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Links rápidos</h3>
+          <ul>
+            <li><a href="#sabores">Sabores em destaque</a></li>
+            <li><a href="#market">Saiso Market</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#avaliacoes">Avaliações</a></li>
+            <li><a href="#visite">Visite-nos</a></li>
+            <li><a href="#reservas" data-open="reserve">Reservar mesa (demo)</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Saiso Friends</h3>
+          <div class="foot-friends" role="group" aria-label="Conhecer os Saiso Friends, conceito criativo proposto">
+            <button type="button" data-card="ramy" aria-label="Ramy"><img src="assets/mascotes/ramy.webp" width="720" height="644" alt="" loading="lazy"></button>
+            <button type="button" data-card="bap" aria-label="Bap"><img src="assets/mascotes/bap.webp" width="702" height="720" alt="" loading="lazy"></button>
+            <button type="button" data-card="tteok" aria-label="Tteok"><img src="assets/mascotes/tteok.webp" width="514" height="724" alt="" loading="lazy"></button>
+            <button type="button" data-card="mandu" aria-label="Mandu"><img src="assets/mascotes/mandu.webp" width="565" height="465" alt="" loading="lazy"></button>
+          </div>
+          <p class="note" style="margin-top:10px;color:rgba(220,198,184,.78)">Conceito criativo proposto para esta demo.</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <p><b>Site demonstrativo.</b> Preços, horários, nota e avaliações vêm dos materiais fornecidos e devem ser validados antes de qualquer publicação. O site não realiza reservas nem pedidos reais.</p>
+        <img class="or7" src="assets/branding/marca-or7.webp" width="1000" height="141" alt="Or7 — Idealizado e desenvolvido por Lorenzo Orsetti" loading="lazy" decoding="async">
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Dock mobile (OPÇÃO A: barra flutuante) ===== -->
+  <nav class="dock" aria-label="Navegação rápida">
+    <a href="#inicio" data-sec="inicio" aria-label="Início"><svg class="ico" aria-hidden="true"><use href="#i-house"/></svg><span>Início</span></a>
+    <a href="#sabores" data-sec="sabores" aria-label="Sabores"><svg class="ico" aria-hidden="true"><use href="#i-utensils"/></svg><span>Sabores</span></a>
+    <button class="dock-cta" type="button" data-open="reserve" aria-label="Reservar mesa (demonstração)"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg><span>Reservar</span></button>
+    <a href="#market" data-sec="market" aria-label="Saiso Market"><svg class="ico" aria-hidden="true"><use href="#i-shopping-bag"/></svg><span>Market</span></a>
+    <button type="button" id="moreBtn" aria-label="Mais opções" aria-haspopup="dialog"><svg class="ico" aria-hidden="true"><use href="#i-ellipsis"/></svg><span>Mais</span></button>
+  </nav>
+</div>
+
+<!-- ================= OVERLAYS & PAINÉIS ================= -->
+<div class="overlay" id="overlay" aria-hidden="true"></div>
+
+<!-- Cardápio completo -->
+<section class="panel panel-r menu-panel" id="menuPanel" role="dialog" aria-modal="true" aria-label="Cardápio da Saiso" aria-hidden="true">
+  <header class="p-head mh">
+    <div class="mh-main">
+      <button class="p-back" type="button" id="menuBack" hidden><svg class="ico" aria-hidden="true"><use href="#i-arrow-left"/></svg>Voltar ao cardápio</button>
+      <p class="mh-eyebrow" id="menuEyebrow">SAISO / FOOD COLLECTION</p>
+      <h2 id="menuTitle">Cardápio completo</h2>
+      <p class="sub" id="menuSub">Descubra os sabores da nossa cozinha coreana.</p>
+    </div>
+    <span class="mh-kr" lang="ko" aria-hidden="true">메뉴</span>
+    <button class="p-close" type="button" data-close aria-label="Fechar cardápio"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <span class="mh-rule" aria-hidden="true"></span>
+  </header>
+  <div class="m-tools" id="menuTools">
+    <div class="search">
+      <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+      <label class="sr-only" for="menuSearch">Buscar no cardápio</label>
+      <input id="menuSearch" type="search" placeholder="Qual sabor você procura?" autocomplete="off" inputmode="search" enterkeyhint="search">
+      <button class="clear" type="button" id="menuClear" aria-label="Limpar busca" hidden><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="m-chips" id="menuChips" role="group" aria-label="Filtrar por categoria"></div>
+    <p class="m-count" id="menuCount" aria-live="polite"></p>
+  </div>
+  <div class="p-body" id="menuBody"></div>
+</section>
+
+<!-- Produto do market -->
+<section class="panel panel-r" id="marketPanel" role="dialog" aria-modal="true" aria-labelledby="mpTitle" aria-hidden="true" style="width:min(100%,480px)">
+  <header class="p-head">
+    <div><p class="eyebrow" style="margin-bottom:6px">Saiso Market · seleção ilustrativa</p><h2 id="mpTitle">Produto</h2></div>
+    <button class="p-close" type="button" data-close aria-label="Fechar detalhes do produto"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </header>
+  <div class="p-body" id="mpBody"></div>
+</section>
+
+<!-- Reserva demonstrativa -->
+<section class="panel panel-c res" id="reservePanel" role="dialog" aria-modal="true" aria-labelledby="resTitle" aria-hidden="true">
+  <header class="p-head">
+    <div><p class="step-label" id="resStepLabel">Passo 1 de 4</p><p class="sub" style="margin:0">Reserva demonstrativa · nada é enviado</p></div>
+    <button class="p-close" type="button" data-close aria-label="Fechar reserva"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </header>
+  <ol class="steps" id="resSteps" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+  <div class="p-body" id="resBody"></div>
+  <div class="p-foot" id="resFoot"></div>
+</section>
+
+<!-- Photocard -->
+<section class="panel panel-c card-modal" id="cardModal" role="dialog" aria-modal="true" aria-labelledby="pcName" aria-hidden="true" style="display:flex">
+  <button class="p-close" type="button" data-close aria-label="Fechar photocard"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <div class="pc" id="pc"></div>
+  <p class="pc-about" id="pcAbout"></p>
+  <div class="pc-tabs" id="pcTabs" role="group" aria-label="Escolher mascote"></div>
+  <p class="pc-disc">Saiso Friends é um conceito criativo proposto para esta demo, e não um conjunto oficial de personagens licenciado pelo restaurante.</p>
+</section>
+
+<!-- Lightbox da galeria -->
+<section class="panel panel-c lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" aria-hidden="true">
+  <button class="p-close" type="button" data-close aria-label="Fechar foto"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <figure class="lb-fig"><img id="lbImg" alt="" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=" width="900" height="1200"><figcaption id="lbCap"></figcaption></figure>
+  <div class="lb-nav">
+    <button class="icon-btn" type="button" id="lbPrev" aria-label="Foto anterior"><svg class="ico" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+    <span id="lbCount" aria-live="polite"></span>
+    <button class="icon-btn" type="button" id="lbNext" aria-label="Próxima foto"><svg class="ico" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+  </div>
+</section>
+
+<!-- Mais (mobile) -->
+<section class="panel sheet" id="moreSheet" role="dialog" aria-modal="true" aria-labelledby="moreTitle" aria-hidden="true">
+  <div class="grab" aria-hidden="true"></div>
+  <button class="p-close" type="button" data-close aria-label="Fechar menu" style="position:absolute;right:14px;top:14px"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <h2 id="moreTitle">Mais</h2>
+  <nav aria-label="Outras seções">
+    <a href="#sobre" data-sec="sobre"><svg class="ico" aria-hidden="true"><use href="#i-book-open"/></svg>Sobre a Saiso</a>
+    <a href="#galeria" data-sec="galeria"><svg class="ico" aria-hidden="true"><use href="#i-camera"/></svg>Galeria</a>
+    <a href="#avaliacoes" data-sec="avaliacoes"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg>Avaliações</a>
+    <a href="#reservas" data-sec="reservas"><svg class="ico" aria-hidden="true"><use href="#i-calendar-check"/></svg>Convite de reservas</a>
+    <a href="#visite" data-sec="visite"><svg class="ico" aria-hidden="true"><use href="#i-map-pin"/></svg>Visite-nos</a>
+    <a href="tel:+5541987234385"><svg class="ico" aria-hidden="true"><use href="#i-phone"/></svg>Ligar: (41) 98723-4385</a>
+  </nav>
+  <div class="row"><span>Tema: sol e lua</span>
+    <button class="theme-toggle lg" type="button" data-theme-toggle aria-pressed="false" aria-label="Ativar modo escuro"><svg class="tt-cloud c1" viewBox="0 0 40 20" aria-hidden="true"><path d="M4 16c-2.6 0-3.2-3.6-.6-4.6C3.2 8 7.4 6.8 9 9.4 10.4 5.4 15.8 5.4 16.8 9.6c2.6-1 5.2.6 4.6 3.4-.3 1.7-1.6 3-3.2 3z"/></svg><span class="tt-orb"></span></button>
+  </div>
+  <div class="row" style="border-top:0;padding-top:0"><span>Saiso Friends (conceito)</span>
+    <button class="btn btn-ghost btn-sm" type="button" data-card="ramy">Conhecer</button>
+  </div>
+</section>
+
+<script>
+/* ============================================================
+   SAISO · demo — JavaScript (sem dependências)
+   Seções: 1 utilidades · 2 dados · 3 tema · 4 painéis · 5 navegação
+           6 sabores · 7 cardápio · 8 market · 9 avaliações
+           10 photocards · 11 reserva demonstrativa · 12 init
+   ============================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- 1. utilidades ---------- */
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var ico = function (n) { return '<svg class="ico" aria-hidden="true"><use href="#i-' + n + '"/></svg>'; };
+  var brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+  var norm = function (s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); };
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+  var app = $('#app');
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function wait(fn, ms) { return setTimeout(fn, reduced ? 0 : ms); }
+
+  /* ---------- 2. dados ---------- */
+  var CATS = [
+    { id: 'entradas', label: 'Entradas' },
+    { id: 'pratos', label: 'Pratos' },
+    { id: 'lamen', label: 'Lámen' },
+    { id: 'doces', label: 'Doces' },
+    { id: 'bebidas', label: 'Bebidas' }
+  ];
+  var CAT_LABEL = {}; CATS.forEach(function (c) { CAT_LABEL[c.id] = c.label; });
+
+  /* Todas as imagens são fotos/ilustrações inteiras (kind 'photo'). real:true = fotografia real da Saiso. */
+  var C = 'assets/cardapio/';
+  var ILU = 'Imagem ilustrativa criada para o cardápio e a vitrine da demo. O prato servido pode variar.';
+  var CD = 'A mesma imagem ilustra as três versões de corn dog.';
+  var MENU = [
+    { id: 'batata-frita', name: 'Batata Frita', cat: 'entradas', price: 33, desc: 'Batata frita temperada, servida em prato em formato de coração.', img: C + 'batata-frita.webp', w: 760, h: 760, kind: 'photo', note: ILU },
+    { id: 'chicken-gochujang', name: 'Chicken (Gochujang)', cat: 'entradas', price: 40, desc: 'Frango frito no estilo coreano.', img: C + 'chicken-gochujang.webp', w: 765, h: 1024, kind: 'photo', real: true, feat: 1 },
+    { id: 'chicken-kimbap', name: 'ChickenKimbap', cat: 'entradas', price: 34, desc: 'Sushi coreano, o kimbap, na versão com frango.', img: C + 'chicken-kimbap.webp', w: 760, h: 950, kind: 'photo', note: ILU, feat: 2 },
+    { id: 'bibimbap', name: 'Bibimbap', cat: 'pratos', price: 52, desc: 'Arroz oriental com vegetais.', img: C + 'bibimbap.webp', w: 760, h: 944, kind: 'photo', real: true },
+    { id: 'bulbeck', name: 'Bulbeck', cat: 'pratos', price: 52, desc: 'Arroz oriental com acompanhamentos.', img: C + 'bulbeck.webp', w: 760, h: 760, kind: 'photo', real: true },
+    { id: 'bulgogi', name: 'Bulgogi', cat: 'pratos', price: 62, desc: 'Servido com arroz oriental.', img: C + 'bulgogi.webp', w: 760, h: 950, kind: 'photo', note: ILU, feat: 3 },
+    { id: 'bulgogi-jeongol', name: 'Bulgogi Jeongol', cat: 'pratos', price: 160, desc: 'Sopa coreana servida na panela, no estilo jeongol.', img: C + 'bulgogi-jeongol.webp', w: 760, h: 760, kind: 'photo', note: ILU, feat: 5 },
+    { id: 'bibimmyon', name: 'BibimMyon', cat: 'lamen', price: 39, desc: 'Macarrão instantâneo coreano.', img: C + 'bibimmyon.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'budae-jjigae', name: 'BudaeJjigae', cat: 'lamen', price: 58, desc: 'Sopa apimentada coreana.', img: C + 'budae-jjigae.webp', w: 760, h: 950, kind: 'photo', note: ILU, spicy: true, feat: 4 },
+    { id: 'chapaguetti-ovo', name: 'Chapaguetti (Ovo)', cat: 'lamen', price: 39, desc: 'Macarrão coberto com ovo frito.', img: C + 'chapaguetti-ovo.webp', w: 760, h: 760, kind: 'photo', note: ILU, feat: 8 },
+    { id: 'baramtteok', name: 'BaramTteok', cat: 'doces', price: 24, desc: 'Bolinho de arroz.', img: C + 'baramtteok.webp', w: 1013, h: 760, kind: 'photo', fit: 'contain', note: ILU, feat: 7 },
+    { id: 'corndog-misto', name: 'Corn Dog Coreano Misto', cat: 'doces', price: 20, desc: 'Cachorro-quente coreano no palito.', img: C + 'corndog.webp', w: 760, h: 1140, kind: 'photo', note: ILU + ' ' + CD },
+    { id: 'corndog-original', name: 'Corn Dog Coreano Original', cat: 'doces', price: 18.5, desc: 'Cachorro-quente coreano no palito.', img: C + 'corndog.webp', w: 760, h: 1140, kind: 'photo', note: ILU + ' ' + CD, feat: 6 },
+    { id: 'corndog-queijo', name: 'Corn Dog Coreano Queijo', cat: 'doces', price: 20, desc: 'Cachorro-quente coreano no palito.', img: C + 'corndog.webp', w: 760, h: 1140, kind: 'photo', note: ILU + ' ' + CD },
+    { id: 'agua-sem-gas', name: 'Água sem gás', cat: 'bebidas', sub: 'Água', price: 6, desc: '', img: C + 'agua.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'coca-cola', name: 'Coca-Cola 350ml', cat: 'bebidas', sub: 'Refrigerantes', price: 7, desc: '', img: C + 'coca-cola.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'banana-milk', name: 'Banana Milk', cat: 'bebidas', sub: 'Refrigerantes coreanos', price: 15.5, desc: 'Leite de banana coreano.', img: C + 'banana-milk.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'bonbon-abacaxi', name: 'BonBon Abacaxi', cat: 'bebidas', sub: 'Refrigerantes coreanos', price: 18, desc: 'Suco de abacaxi coreano.', img: C + 'bonbon-abacaxi.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'bonbon-morango', name: 'BonBon Morango', cat: 'bebidas', sub: 'Refrigerantes coreanos', price: 18, desc: 'Suco de morango coreano.', img: C + 'bonbon-morango.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'bonbon-pessego', name: 'BonBon Pêssego', cat: 'bebidas', sub: 'Refrigerantes coreanos', price: 20, desc: 'Suco de pêssego coreano.', img: C + 'bonbon-pessego.webp', w: 760, h: 950, kind: 'photo', note: ILU },
+    { id: 'busan-drink', name: 'Busan Drink', cat: 'bebidas', sub: 'Bebidas alcoólicas', alcohol: true, price: 30, desc: 'Drink da carta de bebidas alcoólicas. Descrição completa a confirmar com o restaurante.', img: C + 'busan-drink.webp', w: 760, h: 950, kind: 'photo', note: ILU }
+  ];
+  var BY_ID = {}; MENU.forEach(function (m) { BY_ID[m.id] = m; });
+  var FEATURED = MENU.filter(function (m) { return m.feat; }).sort(function (a, b) { return a.feat - b.feat; });
+
+  var M = 'assets/cardapio/';
+  var PRODUCTS = [
+    { id: 'banana-milk', name: 'Banana Milk', cat: 'leites', img: M + 'banana-milk.webp', menuDesc: 'Leite de banana coreano.', pack: 'A arte mostra a caixinha com 바나나맛우유 e “Banana Flavored Milk Drink”.' },
+    { id: 'milkis', name: 'Milkis', cat: 'refrigerantes', img: M + 'milkis.webp', pack: 'A arte mostra a lata Lotte Milkis, com “Original Flavor” e “Milk & Yogurt”.' },
+    { id: 'bonbon-abacaxi', name: 'BonBon Abacaxi', cat: 'sucos', img: M + 'bonbon-abacaxi.webp', menuDesc: 'Suco de abacaxi coreano.', pack: 'A arte mostra a lata com a marca 봉봉 (BonBon) e abacaxis.' },
+    { id: 'bonbon-morango', name: 'BonBon Morango', cat: 'sucos', img: M + 'bonbon-morango.webp', menuDesc: 'Suco de morango coreano.', pack: 'A arte mostra a lata com a marca 봉봉 (BonBon), “Nova fórmula” e morangos.' },
+    { id: 'bonbon-pessego', name: 'BonBon Pêssego', cat: 'sucos', img: M + 'bonbon-pessego.webp', menuDesc: 'Suco de pêssego coreano.', pack: 'A arte mostra a lata com a marca 봉봉 (BonBon) e pêssegos.' },
+    { id: 'bonbon-uva', name: 'BonBon Uva', cat: 'sucos', img: M + 'bonbon-uva.webp', pack: 'A arte mostra a lata “BonBon original”, 235 mL, com uvas verdes.' },
+    { id: 'coco-palm', name: 'Coco Palm Uva', cat: 'sucos', img: M + 'coco-palm.webp', pack: 'A arte mostra a lata Coco Palm, sabor uva (포도), com cocos e uvas.' },
+    { id: 'lemon-soda', name: 'Lemon Soda', cat: 'refrigerantes', img: M + 'lemon-soda.webp', pack: 'A arte mostra a lata “Lemon Slice Soda” com fatias de limão.' }
+  ];
+  var PCATS = [{ id: 'todos', label: 'Todos' }, { id: 'sucos', label: 'Sucos' }, { id: 'leites', label: 'Leites' }, { id: 'refrigerantes', label: 'Refrigerantes' }];
+  var PCAT_LABEL = { sucos: 'Sucos', leites: 'Leites', refrigerantes: 'Refrigerantes' };
+  var MANDU_MSG = {
+    todos: 'Vamos explorar?',
+    sucos: 'Os BonBon trazem a marca 봉봉 na lata, com o sabor ilustrado ao lado.',
+    leites: 'Na caixinha lê-se 바나나맛우유, algo como “leite sabor banana”.',
+    refrigerantes: 'Aqui a vitrine mostra refrigerantes coreanos ilustrados: Milkis e Lemon Soda.'
+  };
+
+  var REVIEWS = [
+    { name: 'Giovana Boiko', kind: 'Trecho da avaliação', text: '“A Saiso virou, sem dúvidas, meu restaurante favorito de Curitiba!”', extra: 'Também elogia a comida, os preços, a experiência, a mercearia e o churrasco coreano (resumo).' },
+    { name: 'Gabriela Gelinski Feola', kind: 'Resumo da avaliação', text: 'Elogia o atendimento cuidadoso, a explicação dos pratos e a sobremesa.' },
+    { name: 'Carlos de Almeida Barbosa', kind: 'Resumo da avaliação', text: 'Destaca a variedade de pratos e os preços justos.' },
+    { name: 'Maria de Fátima', kind: 'Resumo da avaliação', text: 'Cita o K-pop na ambientação, os funcionários simpáticos, a experiência e a comida.' },
+    { name: 'Gabi Mello', kind: 'Resumo da avaliação', text: 'Elogia a autenticidade e se surpreende com o corn dog.' }
+  ];
+
+  var FRIENDS = [
+    { id: 'ramy', name: 'Ramy', kr: '라미', role: 'Energia e descoberta', quote: 'Novos sabores sempre me animam!', about: 'Sempre animado, Ramy ama explorar novos sabores e mostrar tudo o que a Saiso tem de melhor.', img: 'assets/mascotes/ramy.webp', w: 720, h: 644, alt: 'Ramy: tigela de lámen com fones de ouvido vermelhos e tênis vermelhos', bg: 'linear-gradient(160deg,#CF5440,#7A2C22)' },
+    { id: 'bap', name: 'Bap', kr: '밥', role: 'Acolhimento e reservas', quote: 'Sempre pronto para te receber!', about: 'Gentil e acolhedor, Bap está sempre pronto para te receber e torna cada visita especial.', img: 'assets/mascotes/bap.webp', w: 702, h: 720, alt: 'Bap: tigela de arroz com chapéu marrom', bg: 'linear-gradient(160deg,#C99763,#7F4F2B)' },
+    { id: 'tteok', name: 'Tteok', kr: '떡', role: 'Sabor marcante', quote: 'Se tem atitude, tem Tteok!', about: 'O mais ousado do grupo: adora sabores intensos e traz atitude para os pratos mais marcantes.', img: 'assets/mascotes/tteok.webp', w: 514, h: 724, alt: 'Tteok: cilindro de tteokbokki avermelhado com óculos escuros e braços cruzados', bg: 'linear-gradient(160deg,#DC4B2C,#781B13)' },
+    { id: 'mandu', name: 'Mandu', kr: '만두', role: 'Market e curiosidades', quote: 'Vamos explorar novas descobertas!', about: 'Curioso e observador, Mandu é o guia da Saiso Market e adora compartilhar curiosidades.', img: 'assets/mascotes/mandu.webp', w: 565, h: 465, alt: 'Mandu: dumpling com bolsa vermelha e bandeirinha', bg: 'linear-gradient(160deg,#E6AB5C,#A2602A)' }
+  ];
+  var FR_BY = {}; FRIENDS.forEach(function (f) { FR_BY[f.id] = f; });
+
+  /* ---------- 3. tema (sol e lua) ---------- */
+  var meta = $('meta[name="theme-color"]');
+  function curTheme() { return root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }
+  function applyTheme(t, persist) {
+    root.setAttribute('data-theme', t);
+    var dark = t === 'dark';
+    $$('[data-theme-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(dark));
+      b.setAttribute('aria-label', dark ? 'Ativar modo claro' : 'Ativar modo escuro');
+      if (b.hasAttribute('data-tip')) b.setAttribute('data-tip', dark ? 'Modo claro' : 'Modo escuro');
+    });
+    if (meta) meta.setAttribute('content', dark ? '#1B1514' : '#FBF1E8');
+    if (persist) { try { localStorage.setItem('saiso-theme', t); } catch (e) { /* storage indisponível */ } }
+  }
+  function initTheme() {
+    applyTheme(curTheme(), false);
+    $$('[data-theme-toggle]').forEach(function (b) {
+      b.addEventListener('click', function () { applyTheme(curTheme() === 'dark' ? 'light' : 'dark', true); });
+    });
+    try {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        var saved = null; try { saved = localStorage.getItem('saiso-theme'); } catch (x) { /* ignore */ }
+        if (!saved) applyTheme(e.matches ? 'dark' : 'light', false);
+      });
+    } catch (e) { /* navegadores antigos */ }
+  }
+
+  /* ---------- 4. painéis (foco, Esc, scroll lock, inert) ---------- */
+  var overlay = $('#overlay');
+  var openEl = null, lastFocus = null;
+  var panels = $$('.panel');
+  panels.forEach(function (p) { p.inert = true; });
+  function focusables(c) {
+    return $$('a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])', c).filter(function (n) { return !n.hidden && n.offsetParent !== null || n === document.activeElement; });
+  }
+  function openPanel(p, trigger, focusSel) {
+    if (openEl && openEl !== p) closePanel(true);
+    lastFocus = trigger || document.activeElement;
+    openEl = p; p.inert = false; p.setAttribute('aria-hidden', 'false');
+    p.classList.add('open'); overlay.classList.add('open');
+    app.inert = true; root.classList.add('lock');
+    var tgt = (focusSel && $(focusSel, p)) || $('[data-close]', p);
+    setTimeout(function () { if (tgt) tgt.focus({ preventScroll: true }); }, reduced ? 0 : 60);
+  }
+  function closePanel(skipFocus) {
+    if (!openEl) return;
+    var p = openEl; openEl = null;
+    p.classList.remove('open'); overlay.classList.remove('open');
+    p.setAttribute('aria-hidden', 'true'); p.inert = true;
+    app.inert = false; root.classList.remove('lock');
+    if (p._onClose) p._onClose();
+    if (!skipFocus && lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
+  }
+  overlay.addEventListener('click', function () { closePanel(); });
+  document.addEventListener('keydown', function (e) {
+    if (!openEl) return;
+    if (e.key === 'Escape') { e.preventDefault(); closePanel(); return; }
+    if (e.key === 'Tab') {
+      var f = focusables(openEl); if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !openEl.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && (document.activeElement === last || !openEl.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* ---------- 5. navegação: scroll-spy, reveal, dock ---------- */
+  function initNav() {
+    var ids = ['inicio', 'sobre', 'sabores', 'market', 'galeria', 'avaliacoes', 'reservas', 'visite'];
+    var secs = ids.map(function (i) { return document.getElementById(i); });
+    var links = $$('[data-sec]');
+    var cur = null, ticking = false;
+    function setActive(id) {
+      if (id === cur) return; cur = id;
+      links.forEach(function (a) { if (a.getAttribute('data-sec') === id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    }
+    function spy() {
+      ticking = false;
+      var line = window.innerHeight * 0.38, active = ids[0];
+      secs.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= line) active = ids[i]; });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) active = ids[ids.length - 1];
+      setActive(active);
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, { passive: true });
+    window.addEventListener('resize', spy);
+    spy();
+
+    var rv = $$('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+      rv.forEach(function (n) { io.observe(n); });
+    } else rv.forEach(function (n) { n.classList.add('in'); });
+
+    /* sheet "Mais" (mobile) */
+    var sheet = $('#moreSheet');
+    $('#moreBtn').addEventListener('click', function (e) { openPanel(sheet, e.currentTarget); });
+    $$('a[href^="#"]', sheet).forEach(function (a) { a.addEventListener('click', function () { closePanel(true); }); });
+  }
+
+  /* ---------- 6. sabores (estilo revista) ---------- */
+  var mag = { i: 0, timer: null };
+  function dishClass(m) { return 'dish is-photo'; }
+  function initMag() {
+    var thumbs = $('#thumbs');
+    FEATURED.forEach(function (m, i) {
+      var b = el('button', 'thumb'); b.type = 'button'; b.setAttribute('data-i', i);
+      b.setAttribute('aria-label', (i + 1) + ' de ' + FEATURED.length + ': ' + m.name);
+      b.innerHTML = '<span class="t-img"><img src="' + m.img + '" alt="" width="' + m.w + '" height="' + m.h + '" loading="lazy" decoding="async"></span><span>' + m.name.replace('Coreano ', '') + '</span>';
+      b.addEventListener('click', function () { showDish(i, true); });
+      thumbs.appendChild(b);
+    });
+    $('#magPrev').addEventListener('click', function () { showDish(mag.i - 1, true); });
+    $('#magNext').addEventListener('click', function () { showDish(mag.i + 1, true); });
+    $('#magDetails').addEventListener('click', function (e) { openMenu({ id: FEATURED[mag.i].id, trigger: e.currentTarget }); });
+    $('#mag').addEventListener('keydown', function (e) {
+      if (e.target.closest && e.target.closest('input')) return;
+      if (e.key === 'ArrowRight') { showDish(mag.i + 1, true); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { showDish(mag.i - 1, true); e.preventDefault(); }
+    });
+    thumbs.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { showDish(mag.i + 1, true, true); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { showDish(mag.i - 1, true, true); e.preventDefault(); }
+    });
+    showDish(0, false);
+    lockCopy();
+    var rz = null; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(lockCopy, 150); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockCopy);
+    var idle = window.requestIdleCallback || function (f) { return setTimeout(f, 1500); };
+    idle(function () { FEATURED.forEach(function (m) { var im = new Image(); im.src = m.img; }); });
+  }
+  function fillInfo(m, n, len) {
+      var pad = String(n + 1).padStart(2, '0');
+      $('#magCount').textContent = pad + ' / ' + String(len).padStart(2, '0');
+      $('#magName').textContent = m.name;
+      $('#magDesc').textContent = m.desc;
+      $('#magPrice').textContent = brl.format(m.price);
+      var meta = $('#magMeta'); meta.textContent = '';
+      meta.appendChild(el('span', 'tag', CAT_LABEL[m.cat]));
+      if (m.spicy) { var t = el('span', 'tag hot'); t.innerHTML = ico('flame') + 'Apimentado, segundo o cardápio'; meta.appendChild(t); }
+      $('#tteokPop').hidden = !m.spicy;
+  }
+  function lockCopy() {
+    var info = $('#magInfo'); if (!info) return;
+    var cur = FEATURED[mag.i], max = 0;
+    info.style.minHeight = '0px';
+    FEATURED.forEach(function (m, i) { fillInfo(m, i, FEATURED.length); max = Math.max(max, info.offsetHeight); });
+    fillInfo(cur, mag.i, FEATURED.length);
+    info.style.minHeight = Math.ceil(max) + 'px';
+  }
+  function showDish(n, announce, focusThumb) {
+    var len = FEATURED.length; n = (n + len) % len;
+    var m = FEATURED[n], stage = $('#stage'), img = $('#dishImg');
+    clearTimeout(mag.timer);
+    var apply = function () {
+      mag.i = n;
+      var pad = String(n + 1).padStart(2, '0');
+      $('#ghost').textContent = pad;
+      $('#dish').className = dishClass(m);
+      img.onload = function () { stage.classList.remove('swap'); };
+      img.width = m.w; img.height = m.h;
+      img.alt = (m.real ? 'Foto do prato ' : 'Imagem ilustrativa do prato ') + m.name;
+      img.src = m.img;
+      if (img.complete) stage.classList.remove('swap');
+      fillInfo(m, n, len);
+      $$('.thumb').forEach(function (b, i) { if (i === n) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+      var active = $$('.thumb')[n], box = $('#thumbs');
+      if (active) box.scrollTo({ left: active.offsetLeft - (box.clientWidth - active.clientWidth) / 2, behavior: reduced ? 'auto' : 'smooth' });
+      if (focusThumb && active) active.focus({ preventScroll: true });
+      if (announce) $('#magLive').textContent = 'Prato ' + (n + 1) + ' de ' + len + ': ' + m.name + ', ' + brl.format(m.price);
+      mag.timer = null;
+    };
+    if (announce && !reduced) { stage.classList.add('swap'); mag.timer = setTimeout(apply, 260); } else apply();
+  }
+
+  /* ---------- 7. cardápio completo (painel lateral) ---------- */
+  var menu = { view: 'list', cat: 'todos', q: '', lastId: null, scroll: 0, trigger: null };
+  var mp = $('#menuPanel'), mBody = $('#menuBody');
+  function matches(m) {
+    if (menu.cat !== 'todos' && m.cat !== menu.cat) return false;
+    if (!menu.q) return true;
+    var hay = norm([m.name, m.desc, CAT_LABEL[m.cat], m.sub || ''].join(' '));
+    return menu.q.split(/\s+/).every(function (w) { return hay.indexOf(w) > -1; });
+  }
+  function renderChips() {
+    var box = $('#menuChips'); box.textContent = '';
+    [{ id: 'todos', label: 'Todos' }].concat(CATS).forEach(function (c) {
+      var b = el('button', 'chip', c.label); b.type = 'button'; b.setAttribute('aria-pressed', String(menu.cat === c.id));
+      b.addEventListener('click', function () { menu.cat = c.id; renderChips(); renderList(); });
+      box.appendChild(b);
+    });
+  }
+  var CAT_DESC = {
+    entradas: 'Pequenos sabores, grandes descobertas.',
+    pratos: 'Refeições para saborear à mesa.',
+    lamen: 'Sopas e macarrões da cozinha coreana.',
+    doces: 'Para adoçar, ou petiscar, a visita.',
+    bebidas: 'Para acompanhar cada sabor.'
+  };
+  var EMPTY_SVG = '<svg class="m-empty-ico" viewBox="0 0 120 96" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 46h92c0 22-18 38-46 38S14 68 14 46z"/><path d="M30 46c2-9 10-14 30-14s28 5 30 14" opacity=".5"/><path d="M84 8 62 38M96 12 72 40"/><path d="M40 20c0-5 5-5 5-10M52 20c0-5 5-5 5-10" opacity=".55"/></svg>';
+  function viewIn() { mBody.classList.remove('v-in'); void mBody.offsetWidth; mBody.classList.add('v-in'); }
+  function card(m, n) {
+    var b = el('button', 'm-item mc'); b.type = 'button'; b.setAttribute('data-id', m.id);
+    b.style.setProperty('--i', Math.min(n, 9));
+    if (menu.lastId === m.id) b.setAttribute('aria-current', 'true');
+    var ph = el('span', 'mc-ph' + (m.fit === 'contain' ? ' is-contain' : '')); ph.setAttribute('aria-hidden', 'true');
+    var im = el('img'); im.src = m.img; im.alt = ''; im.width = m.w; im.height = m.h; im.loading = n > 4 ? 'lazy' : 'eager'; im.decoding = 'async';
+    ph.appendChild(im); if (m.fit === 'contain') ph.style.setProperty('--bg', 'url("' + m.img + '")');
+    var body = el('span', 'mc-body');
+    body.appendChild(el('span', 'mc-num', String(n).padStart(2, '0')));
+    body.appendChild(el('b', 'mc-name', m.name));
+    var sub = m.desc || m.sub || ''; if (sub) body.appendChild(el('span', 'd mc-desc', sub));
+    var foot = el('span', 'mc-foot'); foot.appendChild(el('span', 'pr mc-price', m.price != null ? brl.format(m.price) : ''));
+    var go = el('span', 'mc-go'); go.innerHTML = 'Ver prato ' + ico('arrow-right'); foot.appendChild(go); body.appendChild(foot);
+    b.appendChild(ph); b.appendChild(body);
+    b.addEventListener('click', function () { menu.scroll = mBody.scrollTop; showDetail(m.id); });
+    return b;
+  }
+  function renderList() {
+    var items = MENU.filter(matches);
+    $('#menuCount').textContent = items.length === 1 ? '1 item encontrado' : items.length + ' itens encontrados';
+    mBody.textContent = '';
+    if (!items.length) {
+      var e = el('div', 'm-empty'); e.innerHTML = EMPTY_SVG;
+      e.appendChild(el('b', '', 'Ainda não encontramos esse sabor.')); e.appendChild(el('span', '', 'Que tal pesquisar outro termo ou explorar uma das categorias?'));
+      var bt = el('button', 'btn btn-ghost btn-sm', 'Limpar busca'); bt.type = 'button';
+      bt.addEventListener('click', function () { menu.q = ''; menu.cat = 'todos'; $('#menuSearch').value = ''; $('#menuClear').hidden = true; renderChips(); renderList(); $('#menuSearch').focus(); });
+      e.appendChild(bt); mBody.appendChild(e); mBody.appendChild(menuFoot()); viewIn(); return;
+    }
+    var n = 0;
+    CATS.forEach(function (c) {
+      var g = items.filter(function (m) { return m.cat === c.id; }); if (!g.length) return;
+      var sec = el('section', 'm-group');
+      if (menu.cat !== 'todos') {
+        var hd = el('header', 'cat-hero');
+        hd.appendChild(el('p', 'ch-k', 'Categoria'));
+        hd.appendChild(el('h3', 'ch-t', c.label));
+        hd.appendChild(el('p', 'ch-d', CAT_DESC[c.id]));
+        hd.appendChild(el('span', 'ch-n', g.length === 1 ? '1 item' : g.length + ' itens'));
+        sec.appendChild(hd);
+      } else {
+        var h = el('h3'); h.appendChild(document.createTextNode(c.label)); h.appendChild(el('small', '', String(g.length)));
+        sec.appendChild(h);
+      }
+      var lst = el('div', 'mc-list'); g.forEach(function (m) { lst.appendChild(card(m, ++n)); }); sec.appendChild(lst);
+      mBody.appendChild(sec);
+    });
+    mBody.appendChild(menuFoot()); viewIn();
+  }
+  function menuFoot() {
+    var f = el('footer', 'm-foot');
+    var top = el('div', 'mf-top'); top.appendChild(el('b', '', 'SAISO')); top.appendChild(el('span', 'mf-rule')); f.appendChild(top);
+    f.appendChild(el('p', '', 'Valores e informações sujeitos à confirmação com o estabelecimento. Esta é uma demonstração visual, sem pedidos ou pagamentos.'));
+    return f;
+  }
+  function setView(v) {
+    menu.view = v;
+    $('#menuTools').hidden = v !== 'list';
+    $('#menuBack').hidden = v !== 'detail';
+    $('#menuTitle').hidden = v === 'detail';
+    $('#menuSub').hidden = v === 'detail';
+    $('#menuEyebrow').hidden = v === 'detail';
+  }
+  function showList(restore) {
+    setView('list'); renderChips(); renderList();
+    if (restore) {
+      var it = menu.lastId && $('.m-item[data-id="' + menu.lastId + '"]', mBody);
+      mBody.scrollTop = menu.scroll || 0;
+      if (it) { it.focus({ preventScroll: true }); if (!menu.scroll) it.scrollIntoView({ block: 'center' }); }
+    } else {
+      mBody.scrollTop = 0;
+      var cur = menu.lastId && $('.m-item[data-id="' + menu.lastId + '"]', mBody);
+      if (cur) cur.scrollIntoView({ block: 'center' });
+    }
+  }
+  var PH_SVG = '<div class="d-ph"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 24h36c0 9-7 16-18 16S6 33 6 24z"/><path d="M16 14c0-3 3-3 3-6M24 14c0-3 3-3 3-6M32 14c0-3 3-3 3-6"/></svg><span>Foto em breve</span></div>';
+  function showDetail(id) {
+    var m = BY_ID[id]; if (!m) return; menu.lastId = id;
+    setView('detail'); mBody.textContent = ''; mBody.scrollTop = 0;
+    var hero = el('div', 'd-hero' + (m.kind === 'photo' ? ' is-photo' : m.kind === 'tile' ? ' is-tile' : '') + (m.fit === 'contain' ? ' is-contain' : ''));
+    if (m.fit === 'contain') hero.style.setProperty('--bg', 'url("' + m.img + '")');
+    if (m.kind === 'none') hero.innerHTML = PH_SVG;
+    else { var im = el('img'); im.src = m.img; im.width = m.w; im.height = m.h; im.alt = (m.real ? 'Foto de ' : 'Imagem ilustrativa de ') + m.name; hero.appendChild(im); }
+    if (m.spicy) { var tb = el('button', 'mascot-btn'); tb.type = 'button'; tb.setAttribute('data-card', 'tteok'); tb.setAttribute('aria-label', 'Conhecer o Tteok, mascote conceitual'); tb.innerHTML = '<img src="assets/mascotes/tteok.webp" alt="" width="514" height="724">'; hero.appendChild(tb); }
+    mBody.appendChild(hero);
+    mBody.appendChild(el('h3', 'd-name', m.name));
+    var row = el('div', 'd-row');
+    row.appendChild(el('span', 'd-tag', CAT_LABEL[m.cat] + (m.sub ? ' · ' + m.sub : '')));
+    if (m.spicy) { var hot = el('span', 'd-tag hot'); hot.innerHTML = ico('flame') + 'Apimentado, segundo o cardápio'; row.appendChild(hot); }
+    mBody.appendChild(row);
+    if (m.price != null) { var pr = el('p', 'd-price', brl.format(m.price)); pr.appendChild(el('small', '', 'Valor conforme captura do cardápio · sujeito à confirmação')); mBody.appendChild(pr); }
+    if (m.desc) mBody.appendChild(el('p', 'd-desc', m.desc));
+    var notes = [];
+    if (m.real) notes.push('Fotografia da Saiso, conforme o material fornecido.');
+    if (m.note) notes.push(m.note);
+    if (m.alcohol) notes.push('Bebida alcoólica. Venda e consumo apenas para maiores de 18 anos; beba com moderação.');
+    notes.forEach(function (t) { var n = el('div', 'd-note'); n.innerHTML = ico('info'); n.appendChild(el('span', '', t)); mBody.appendChild(n); });
+    viewIn();
+    var back = $('#menuBack'); setTimeout(function () { back.focus({ preventScroll: true }); }, 20);
+  }
+  function openMenu(opts) {
+    opts = opts || {};
+    menu.trigger = opts.trigger || document.activeElement;
+    openPanel(mp, menu.trigger, opts.id ? '#menuBack' : null);
+    if (opts.id) { menu.lastId = opts.id; showDetail(opts.id); }
+    else { showList(false); }
+  }
+  function initMenu() {
+    $('#menuBack').addEventListener('click', function () { showList(true); });
+    var inp = $('#menuSearch'), clr = $('#menuClear');
+    inp.addEventListener('input', function () { menu.q = norm(inp.value.trim()); clr.hidden = !inp.value; renderList(); });
+    clr.addEventListener('click', function () { inp.value = ''; menu.q = ''; clr.hidden = true; renderList(); inp.focus(); });
+  }
+
+  /* ---------- 8. Saiso Market ---------- */
+  var mk = { cat: 'todos', timer: null };
+  function manduSay(msg) {
+    var b = $('#mandu-bubble'), s = $('#mandu-msg');
+    if (s.textContent === msg) return;
+    b.classList.add('swap'); clearTimeout(mk.timer);
+    mk.timer = wait(function () { s.textContent = msg; b.classList.remove('swap'); }, 220);
+  }
+  function renderMarket() {
+    var chips = $('#mkChips'); chips.textContent = '';
+    PCATS.forEach(function (c) {
+      var b = el('button', 'chip', c.label); b.type = 'button'; b.setAttribute('aria-pressed', String(mk.cat === c.id));
+      b.addEventListener('click', function () { mk.cat = c.id; renderMarket(); manduSay(MANDU_MSG[c.id]); });
+      chips.appendChild(b);
+    });
+    var list = $('#mkCards'); list.textContent = '';
+    var items = PRODUCTS.filter(function (p) { return mk.cat === 'todos' || p.cat === mk.cat; });
+    items.forEach(function (p) {
+      var li = el('li'); var b = el('button', 'pcard'); b.type = 'button'; b.style.width = '100%';
+      b.innerHTML = '<span class="p-img"><img alt="" loading="lazy" decoding="async" width="760" height="950"></span><b></b><span></span>';
+      $('img', b).src = p.img; $('img', b).alt = 'Imagem ilustrativa de ' + p.name;
+      $('b', b).textContent = p.name; b.lastChild.textContent = PCAT_LABEL[p.cat];
+      b.setAttribute('aria-label', p.name + ', ' + PCAT_LABEL[p.cat] + '. Abrir detalhes');
+      b.addEventListener('click', function (e) { openProduct(p, e.currentTarget); });
+      li.appendChild(b); list.appendChild(li);
+    });
+    $('#mkLive').textContent = items.length + (items.length === 1 ? ' produto' : ' produtos') + ' na seleção ' + (mk.cat === 'todos' ? 'completa' : PCAT_LABEL[mk.cat].toLowerCase());
+  }
+  function openProduct(p, trigger) {
+    $('#mpTitle').textContent = p.name;
+    var b = $('#mpBody'); b.textContent = '';
+    var hero = el('div', 'd-hero is-photo'); var im = el('img'); im.src = p.img; im.width = 760; im.height = 950; im.alt = 'Imagem ilustrativa de ' + p.name; hero.appendChild(im); b.appendChild(hero);
+    var r = el('div', 'd-row'); r.appendChild(el('span', 'd-tag', 'Categoria: ' + PCAT_LABEL[p.cat])); b.appendChild(r);
+    if (p.menuDesc) { var d1 = el('p', 'd-desc'); d1.appendChild(el('b', '', 'No cardápio de bebidas: ')); d1.appendChild(document.createTextNode(p.menuDesc)); b.appendChild(d1); }
+    var d2 = el('p', 'd-desc'); d2.style.marginTop = '10px'; d2.appendChild(el('b', '', 'Na arte: ')); d2.appendChild(document.createTextNode(p.pack.replace(/^A arte mostra /, '').replace(/^./, function (c) { return c.toUpperCase(); }))); b.appendChild(d2);
+    var n = el('div', 'd-note'); n.innerHTML = ico('info'); n.appendChild(el('span', '', (p.menuDesc ? 'Produto mencionado no cardápio de bebidas. ' : 'Produto da vitrine ilustrativa; não consta no cardápio de bebidas fornecido. ') + 'Imagem ilustrativa. A disponibilidade na mercearia não está confirmada nesta demo, e não há preço, estoque nem compra.')); b.appendChild(n);
+    openPanel($('#marketPanel'), trigger);
+  }
+
+  /* ---------- 9. avaliações (troca manual) ---------- */
+  var rev = { i: 0 };
+  function renderReviews(announce) {
+    var r = REVIEWS[rev.i], main = $('#revMain');
+    $('#revKind').textContent = r.kind; $('#revQuote').textContent = r.text; $('#revName').textContent = r.name;
+    var ex = $('#revExtra'); ex.textContent = r.extra || ''; ex.hidden = !r.extra;
+    var list = $('#revList'); list.textContent = '';
+    REVIEWS.forEach(function (x, i) {
+      if (i === rev.i) return;
+      var li = el('li'); var b = el('button', 'rev-mini'); b.type = 'button'; b.style.width = '100%';
+      b.innerHTML = '<b></b><p></p><span class="go">Ler em destaque ' + ico('arrow-right') + '</span>';
+      $('b', b).textContent = x.name; $('p', b).textContent = x.text;
+      b.setAttribute('aria-label', 'Ler em destaque o depoimento de ' + x.name);
+      b.addEventListener('click', function () { setReview(i, true, true); });
+      li.appendChild(b); list.appendChild(li);
+    });
+    if (announce) $('#revLive').textContent = 'Depoimento ' + (rev.i + 1) + ' de ' + REVIEWS.length + ', de ' + r.name;
+  }
+  function setReview(n, announce, fromMini) {
+    n = (n + REVIEWS.length) % REVIEWS.length; var main = $('#revMain');
+    main.classList.add('swap');
+    wait(function () { rev.i = n; renderReviews(announce); main.classList.remove('swap'); if (fromMini) main.focus({ preventScroll: true }); }, 240);
+  }
+  function initReviews() {
+    renderReviews(false);
+    $('#revPrev').addEventListener('click', function () { setReview(rev.i - 1, true); });
+    $('#revNext').addEventListener('click', function () { setReview(rev.i + 1, true); });
+    $('#revMain').addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { setReview(rev.i + 1, true); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { setReview(rev.i - 1, true); e.preventDefault(); }
+    });
+    var sx = null, sy = null, main = $('#revMain');
+    main.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    main.addEventListener('touchend', function (e) {
+      if (sx == null) return; var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.4) setReview(rev.i + (dx < 0 ? 1 : -1), true);
+    }, { passive: true });
+  }
+
+  /* ---------- 10. photocards (Saiso Friends — conceito proposto) ---------- */
+  var cardCur = 'ramy', cm = $('#cardModal');
+  function renderCard(id) {
+    cardCur = id; var f = FR_BY[id], pc = $('#pc');
+    pc.style.setProperty('--pc-bg', f.bg); pc.textContent = '';
+    var top = el('div', 'pc-top'); top.appendChild(el('span', '', 'Saiso Friends')); var kr = el('span', 'kr', f.kr); kr.lang = 'ko'; kr.setAttribute('aria-hidden', 'true'); top.appendChild(kr); pc.appendChild(top);
+    var wrap = el('div', 'pc-img'); var im = el('img'); im.src = f.img; im.width = f.w; im.height = f.h; im.alt = f.alt; wrap.appendChild(im); pc.appendChild(wrap);
+    var nm = el('h2', 'pc-name', f.name); nm.id = 'pcName'; pc.appendChild(nm);
+    pc.appendChild(el('p', 'pc-role', f.role)); pc.appendChild(el('p', 'pc-quote', '“' + f.quote + '”'));
+    $('#pcAbout').textContent = f.about;
+    $$('#pcTabs button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-id') === id)); });
+  }
+  function initCards() {
+    var tabs = $('#pcTabs');
+    FRIENDS.forEach(function (f) {
+      var b = el('button'); b.type = 'button'; b.setAttribute('data-id', f.id); b.setAttribute('aria-label', f.name); b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = '<img alt="" width="' + f.w + '" height="' + f.h + '">'; $('img', b).src = f.img;
+      b.addEventListener('click', function () { renderCard(f.id); });
+      tabs.appendChild(b);
+    });
+  }
+  function openCard(id, trigger) { renderCard(id); openPanel(cm, trigger); }
+
+
+  /* ---------- 10b. galeria + lightbox ---------- */
+  var gl = { i: 0, items: [] };
+  function initGallery() {
+    var lb = $('#lightbox'), btns = $$('.gal-item');
+    gl.items = btns.map(function (b) { var im = $('img', b); return { src: im.getAttribute('src'), alt: im.getAttribute('alt'), cap: $('.gal-cap', b).textContent, w: im.naturalWidth || im.width, h: im.naturalHeight || im.height }; });
+    function show(n) {
+      n = (n + gl.items.length) % gl.items.length; gl.i = n; var it = gl.items[n], im = $('#lbImg');
+      im.removeAttribute('width'); im.removeAttribute('height'); im.src = it.src; im.alt = it.alt;
+      $('#lbCap').textContent = it.cap; $('#lbCount').textContent = (n + 1) + ' / ' + gl.items.length;
+    }
+    btns.forEach(function (b, i) { b.addEventListener('click', function (e) { show(i); openPanel(lb, e.currentTarget, '[data-close]'); }); });
+    $('#lbPrev').addEventListener('click', function () { show(gl.i - 1); });
+    $('#lbNext').addEventListener('click', function () { show(gl.i + 1); });
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { show(gl.i + 1); e.preventDefault(); } else if (e.key === 'ArrowLeft') { show(gl.i - 1); e.preventDefault(); }
+    });
+  }
+
+  /* ---------- 11. reserva demonstrativa (4 etapas, só em memória) ---------- */
+  var HOURS = { 0: null };
+  [1, 2, 3, 4].forEach(function (d) { HOURS[d] = { lunch: ['11:30', '14:30'], dinner: ['18:00', '21:30'] }; });
+  [5, 6].forEach(function (d) { HOURS[d] = { lunch: ['11:30', '15:00'], dinner: ['18:00', '22:00'] }; });
+  var DOW = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  var MON = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  var res = null;
+  function freshRes() { return { step: 1, period: null, date: null, time: null, people: 2, name: '', phone: '', err: '' }; }
+  function toMin(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+  function fmtMin(m) { var h = Math.floor(m / 60), mm = m % 60; return h + 'h' + (mm ? String(mm).padStart(2, '0') : ''); }
+  function fmtTime(t) { return fmtMin(toMin(t)); }
+  function isoOf(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function dateList() { var out = [], t = new Date(); t.setHours(0, 0, 0, 0); for (var i = 0; i < 14; i++) { var d = new Date(t); d.setDate(t.getDate() + i); out.push(d); } return out; }
+  function slotsFor(d, period) {
+    var h = HOURS[d.getDay()]; if (!h) return [];
+    var win = h[period], t = toMin(win[0]), end = toMin(win[1]) - 60, out = [];
+    for (; t <= end; t += 30) out.push(t);
+    return out; /* último início = 1h antes do fechamento */
+  }
+  function slotOk(d, m) {
+    var now = new Date();
+    if (isoOf(d) !== isoOf(now)) return true;
+    return m > now.getHours() * 60 + now.getMinutes();
+  }
+  function dayState(d) {
+    if (!HOURS[d.getDay()]) return 'tbc';
+    if (!res.period) return 'ok';
+    var s = slotsFor(d, res.period).filter(function (m) { return slotOk(d, m); });
+    return s.length ? 'ok' : 'none';
+  }
+  var rb = $('#resBody'), rf = $('#resFoot');
+  function maskPhone(v) {
+    var d = v.replace(/\D/g, '').slice(0, 11);
+    if (d.length > 6) return '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length > 10 ? 7 : 6) + '-' + d.slice(d.length > 10 ? 7 : 6);
+    if (d.length > 2) return '(' + d.slice(0, 2) + ') ' + d.slice(2);
+    return d ? '(' + d : '';
+  }
+  function phoneValid(v) {
+    var d = v.replace(/\D/g, '');
+    if (d.length !== 10 && d.length !== 11) return false;
+    if (+d.slice(0, 2) < 11) return false;
+    if (d.length === 11 && d[2] !== '9') return false;
+    return true;
+  }
+  function stepTitle(txt, help) {
+    var h = el('h2', 'r-title', txt); h.id = 'resTitle'; h.tabIndex = -1; rb.appendChild(h);
+    if (help) rb.appendChild(el('p', 'r-help', help));
+  }
+  function renderRes(focusTitle) {
+    rb.textContent = ''; rf.textContent = '';
+    $('#resStepLabel').textContent = 'Passo ' + res.step + ' de 4';
+    $$('#resSteps li').forEach(function (li, i) { li.className = i + 1 < res.step ? 'done' : i + 1 === res.step ? 'cur' : ''; });
+    if (res.step === 1) stepPeriod(); else if (res.step === 2) stepDate(); else if (res.step === 3) stepPeople(); else stepSummary();
+    if (res.err && res.step < 3) { var e = el('p', 'err show'); e.setAttribute('role', 'alert'); e.innerHTML = ico('circle-alert'); e.appendChild(el('span', '', res.err)); e.style.marginTop = '12px'; rb.appendChild(e); }
+    res.err = '';
+    rb.scrollTop = 0;
+    if (focusTitle) { var t = $('#resTitle'); if (t) t.focus({ preventScroll: true }); }
+  }
+  function footBtns(opts) {
+    if (opts.back) { var b = el('button', 'btn btn-ghost', 'Voltar'); b.type = 'button'; b.addEventListener('click', function () { res.step--; renderRes(true); }); rf.appendChild(b); }
+    (opts.extra || []).forEach(function (x) { var b2 = el('button', 'btn ' + (x.cls || 'btn-ghost'), x.label); b2.type = 'button'; b2.addEventListener('click', x.fn); rf.appendChild(b2); });
+    if (opts.next) { var n = el('button', 'btn btn-primary', opts.next.label); n.type = 'button'; n.addEventListener('click', opts.next.fn); rf.appendChild(n); }
+  }
+  var SUN = '<svg viewBox="0 0 48 48" fill="none" stroke="#B75D4D" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="24" cy="24" r="8" fill="#F2B8A6"/><path d="M24 5v6M24 37v6M5 24h6M37 24h6M10.5 10.5l4.2 4.2M33.3 33.3l4.2 4.2M10.5 37.5l4.2-4.2M33.3 14.7l4.2-4.2"/></svg>';
+  var MOON = '<svg viewBox="0 0 48 48" fill="none" stroke="#7A4A2A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M36 30A15 15 0 0 1 18 12a15 15 0 1 0 18 18z" fill="#EAC9B2"/><path d="M34 8v5M31.5 10.5h5" stroke-width="2"/></svg>';
+  function stepPeriod() {
+    stepTitle('Almoço ou jantar?', 'Escolha o período da visita. Esta etapa é independente do alternador de tema.');
+    var g = el('div', 'period'); g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Período');
+    [['lunch', 'Almoço', 'A partir das 11h30', SUN], ['dinner', 'Jantar', 'A partir das 18h', MOON]].forEach(function (p) {
+      var b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', String(res.period === p[0]));
+      b.innerHTML = p[3] + '<b>' + p[1] + '</b><small>' + p[2] + '</small><span class="chk">' + ico('check') + '</span>';
+      b.addEventListener('click', function () {
+        if (res.period !== p[0]) { res.period = p[0]; res.time = null; if (res.date) { var d = dateList().filter(function (x) { return isoOf(x) === res.date; })[0]; if (!d || dayState(d) !== 'ok') res.date = null; } }
+        $$('.period button', g).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      });
+      g.appendChild(b);
+    });
+    rb.appendChild(g);
+    var hb = el('div', 'hrs'); hb.setAttribute('role', 'group'); hb.setAttribute('aria-label', 'Horários informados');
+    hb.appendChild(el('p', 'hrs-t', 'Horários informados'));
+    [['Seg–Qui', '11h30–14h30', '18h–21h30'], ['Sex–Sáb', '11h30–15h', '18h–22h']].forEach(function (r) {
+      var row = el('div', 'hrs-row'); row.appendChild(el('span', 'hrs-d', r[0]));
+      var ps = el('span', 'hrs-ps');
+      [['Almoço', r[1]], ['Jantar', r[2]]].forEach(function (p) { var c = el('span', 'hrs-p'); c.appendChild(el('i', '', p[0])); c.appendChild(document.createTextNode(p[1])); ps.appendChild(c); });
+      row.appendChild(ps); hb.appendChild(row);
+    });
+    var dr = el('div', 'hrs-row dim'); dr.appendChild(el('span', 'hrs-d', 'Domingo')); var dps = el('span', 'hrs-ps'); dps.appendChild(el('span', 'hrs-tbc', 'Fechado')); dr.appendChild(dps); hb.appendChild(dr);
+    hb.appendChild(el('p', 'hrs-n', 'Isso não indica disponibilidade de mesas.'));
+    rb.appendChild(hb);
+    footBtns({ next: { label: 'Continuar', fn: function () { if (!res.period) { res.err = 'Escolha almoço ou jantar para continuar.'; renderRes(false); return; } res.step = 2; renderRes(true); } } });
+  }
+  function stepDate() {
+    stepTitle('Quando você vem?', 'Escolha o dia e o horário de chegada. Os horários seguem os períodos informados.');
+    rb.appendChild(el('p', 'r-sub', 'Dia'));
+    var dates = el('div', 'dates'); dates.setAttribute('role', 'group'); dates.setAttribute('aria-label', 'Dias disponíveis para simulação');
+    dateList().forEach(function (d) {
+      var st = dayState(d), b = el('button', 'date'); b.type = 'button';
+      var iso = isoOf(d);
+      b.setAttribute('aria-pressed', String(res.date === iso));
+      b.innerHTML = '<small></small><b></b><em></em>';
+      $('small', b).textContent = DOW[d.getDay()]; $('b', b).textContent = d.getDate();
+      $('em', b).textContent = st === 'tbc' ? 'fechado' : st === 'none' ? 'sem horário' : MON[d.getMonth()];
+      b.setAttribute('aria-label', DOW[d.getDay()] + ', ' + d.getDate() + ' de ' + MON[d.getMonth()] + (st === 'tbc' ? ', fechado' : st === 'none' ? ', sem horários restantes' : ''));
+      if (st !== 'ok') b.disabled = true;
+      b.addEventListener('click', function () { res.date = iso; res.time = null; $$('.date', dates).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); renderSlots(); });
+      dates.appendChild(b);
+    });
+    rb.appendChild(dates);
+    rb.appendChild(el('p', 'note', 'Aos domingos o restaurante está fechado, então esses dias não podem ser selecionados.'));
+    rb.appendChild(el('p', 'r-sub', 'Horário de chegada'));
+    var box = el('div'); box.id = 'slotBox'; rb.appendChild(box); renderSlots();
+    footBtns({ back: true, next: { label: 'Continuar', fn: function () {
+      if (!res.date) { res.err = 'Escolha um dia.'; renderRes(false); return; }
+      if (!res.time) { res.err = 'Escolha um horário de chegada.'; renderRes(false); return; }
+      res.step = 3; renderRes(true); } } });
+  }
+  function renderSlots() {
+    var box = $('#slotBox'); if (!box) return; box.textContent = '';
+    if (!res.date) { box.appendChild(el('p', 'note', 'Escolha um dia para ver os horários.')); return; }
+    var d = dateList().filter(function (x) { return isoOf(x) === res.date; })[0];
+    var g = el('div', 'slots'); g.setAttribute('role', 'group'); g.setAttribute('aria-label', 'Horários de chegada');
+    slotsFor(d, res.period).forEach(function (m) {
+      var t = fmtMin(m), b = el('button', 'slot', t); b.type = 'button'; b.setAttribute('aria-pressed', String(res.time === m));
+      if (!slotOk(d, m)) { b.disabled = true; b.setAttribute('aria-label', t + ', horário já passou'); }
+      b.addEventListener('click', function () { res.time = m; $$('.slot', g).forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); }); });
+      g.appendChild(b);
+    });
+    box.appendChild(g);
+    box.appendChild(el('p', 'note', 'O último horário de chegada oferecido é 1 hora antes do fim do período.')).style.marginTop = '8px';
+  }
+  function fieldErr(id, msg) {
+    var inp = $('#' + id), er = $('#' + id + 'Err');
+    inp.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    er.classList.toggle('show', !!msg); er.lastChild.textContent = msg || '';
+  }
+  function stepPeople() {
+    stepTitle('Quantas pessoas?', 'Informe o número de pessoas e um contato para a simulação. Nada disso é enviado nem guardado.');
+    var st = el('div', 'stepper');
+    st.innerHTML = '<button class="icon-btn" type="button" aria-label="Menos uma pessoa" id="pMinus">' + ico('minus') + '</button><div class="u"><output id="pOut" aria-live="polite"></output><span>pessoas</span></div><button class="icon-btn" type="button" aria-label="Mais uma pessoa" id="pPlus">' + ico('plus') + '</button>';
+    rb.appendChild(st);
+    var upd = function () { $('#pOut').textContent = res.people; $('#pMinus').disabled = res.people <= 1; $('#pPlus').disabled = res.people >= 10; };
+    $('#pMinus', st).addEventListener('click', function () { if (res.people > 1) { res.people--; upd(); } });
+    $('#pPlus', st).addEventListener('click', function () { if (res.people < 10) { res.people++; upd(); } });
+    upd();
+    rb.appendChild(el('p', 'note', 'Para grupos com mais de 10 pessoas, ligue para o restaurante.')).style.marginTop = '8px';
+    var f1 = el('div', 'field'); f1.innerHTML = '<label for="rName">Nome</label><input id="rName" type="text" autocomplete="off" maxlength="60" aria-describedby="rNameErr" aria-invalid="false" placeholder="Seu nome"><p class="err" id="rNameErr" role="alert">' + ico('circle-alert') + '<span></span></p>';
+    var f2 = el('div', 'field'); f2.innerHTML = '<label for="rPhone">Telefone com DDD</label><input id="rPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="16" aria-describedby="rPhoneErr" aria-invalid="false" placeholder="(41) 90000-0000"><p class="err" id="rPhoneErr" role="alert">' + ico('circle-alert') + '<span></span></p>';
+    rb.appendChild(f1); rb.appendChild(f2);
+    var n = $('#rName'), p = $('#rPhone'); n.value = res.name; p.value = res.phone;
+    var vName = function () { var v = n.value.trim(); var ok = v.length >= 2 && /[A-Za-zÀ-ÿ]{2,}/.test(v); fieldErr('rName', ok ? '' : 'Informe seu nome (mínimo de 2 letras).'); return ok; };
+    var vPhone = function () { var ok = phoneValid(p.value); fieldErr('rPhone', ok ? '' : 'Informe um telefone válido com DDD, por exemplo (41) 98765-4321.'); return ok; };
+    n.addEventListener('input', function () { res.name = n.value; if (n.getAttribute('aria-invalid') === 'true') vName(); });
+    p.addEventListener('input', function () { p.value = maskPhone(p.value); res.phone = p.value; if (p.getAttribute('aria-invalid') === 'true') vPhone(); });
+    n.addEventListener('blur', function () { if (n.value) vName(); }); p.addEventListener('blur', function () { if (p.value) vPhone(); });
+    footBtns({ back: true, next: { label: 'Ver resumo', fn: function () {
+      var a = vName(), b = vPhone();
+      if (!a) { n.focus(); return; } if (!b) { p.focus(); return; }
+      res.name = n.value.trim(); res.step = 4; renderRes(true); } } });
+  }
+  function stepSummary() {
+    var c = el('div', 'bap-cele'); c.innerHTML = '<img src="assets/mascotes/bap.webp" alt="Bap, mascote conceitual, comemorando" width="702" height="720"><p class="sp">Simulação pronta!</p>';
+    rb.appendChild(c);
+    stepTitle('Resumo da sua simulação');
+    var d = dateList().filter(function (x) { return isoOf(x) === res.date; })[0];
+    var dl = el('dl', 'summary');
+    var rows = [
+      ['Período', res.period === 'lunch' ? 'Almoço' : 'Jantar'],
+      ['Data', d ? new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).format(d) : '—'],
+      ['Chegada', fmtMin(res.time)],
+      ['Pessoas', String(res.people)],
+      ['Nome', res.name],
+      ['Telefone', res.phone]
+    ];
+    rows.forEach(function (r) { var row = el('div'); row.appendChild(el('dt', '', r[0])); row.appendChild(el('dd', '', r[1])); dl.appendChild(row); });
+    rb.appendChild(dl);
+    var box = el('div', 'demo-box'); box.setAttribute('role', 'status'); box.innerHTML = ico('info');
+    box.appendChild(el('span', '', 'Esta é uma demonstração. Nenhuma reserva foi enviada ou confirmada pelo restaurante.'));
+    rb.appendChild(box);
+    rb.appendChild(el('p', 'note', 'Para reservar de verdade, ligue para (41) 98723-4385. Os dados desta simulação existem apenas nesta aba e são apagados ao fechar.')).style.marginTop = '12px';
+    footBtns({ back: true, extra: [{ label: 'Nova simulação', fn: function () { res = freshRes(); renderRes(true); } }], next: { label: 'Fechar', fn: function () { closePanel(); } } });
+  }
+  var rp = $('#reservePanel');
+  rp._onClose = function () { if (res && res.step === 4) res = null; };
+  function openReserve(trigger) {
+    if (!res) res = freshRes();
+    renderRes(false);
+    openPanel(rp, trigger, '#resTitle');
+  }
+
+  /* ---------- 12. init ---------- */
+  function init() {
+    initTheme(); initNav(); initMag(); initMenu(); renderMarket(); initReviews(); initCards(); initGallery();
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('[data-open],[data-card],[data-close]') : null; if (!t) return;
+      if (t.hasAttribute('data-close')) { closePanel(); return; }
+      if (t.hasAttribute('data-card')) { e.preventDefault(); openCard(t.getAttribute('data-card'), t); return; }
+      var w = t.getAttribute('data-open');
+      if (w === 'reserve') { e.preventDefault(); openReserve(t); }
+      else if (w === 'menu') { e.preventDefault(); openMenu({ trigger: t }); }
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+</script>
+</body>
+</html>
