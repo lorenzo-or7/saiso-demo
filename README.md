@@ -31,7 +31,7 @@
 
 A Saiso é um restaurante e mercearia coreana no Centro de Curitiba: pratos como jeyuk, bibimbap e frango gochujang, e uma prateleira de bebidas e snacks importados. A proposta foi traduzir esse clima de "pedacinho da Coreia" para o site, com fotos reais da casa, cardápio fácil de explorar e reserva de mesa.
 
-Tons de **terracota**, creme e cacau, serifa editorial (Newsreader) com DM Sans e detalhes em coreano (Noto Serif KR), polaroides e o mascote da casa.
+Tons de **terracota**, creme e cacau, serifa editorial (Newsreader) com DM Sans e detalhes em coreano (Noto Serif KR) e polaroides.
 
 ---
 
